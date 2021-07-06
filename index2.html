@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html height=100vh>
+
+<head>
+    <title>AccelerationCollector</title>
+    <script src="https://kit.fontawesome.com/3aae33c10a.js">
+    </script>
+    <script type="text/javascript"
+        src="file:///C:/Users/anja/Documents/SS21/BA/socket.IO_accelCollector/smoothie.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            /*padding-bottom: 3rem;*/
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        /*#form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }*/
+
+        #dataPhone {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #dataPhone>li {
+            padding: 0.5rem 1rem;
+        }
+
+        #dataPhone>li:nth-child(odd) {
+            background: #303030;
+        }
+
+        #dataESense {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #dataESense>li {
+            padding: 0.5rem 1rem;
+        }
+
+        #dataESense>li:nth-child(odd) {
+            background: #303030;
+        }
+
+        #dataWatch {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #dataWatch>li {
+            padding: 0.5rem 1rem;
+        }
+
+        #dataWatch>li:nth-child(odd) {
+            background: #303030;
+        }
+
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+        .init {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        .table {
+            display: grid;
+            grid-template-rows: 4fr 1fr 36r;
+            padding-left: 10px;
+
+        }
+
+        .charts {
+            display: grid;
+            grid-template-rows: 1fr 3fr;
+
+        }
+
+        #button {
+            /*
+            padding-top: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;*/
+            padding-top: 10px;
+            width: 130px;
+            height: 120px;
+            font-size: 16px;
+        }
+
+        #buttonContainer {
+            padding-top: 0px;
+        }
+
+        #form {
+            padding-top: 30px;
+        }
+
+        #p_button {
+            font-size: 12px;
+            color: #4CAF50;
+        }
+
+
+        .btn-group button {
+            background-color: #4CAF50;
+            /* Green background */
+            border: 1px solid green;
+            /* Green border */
+            color: white;
+            width: 85px;
+            height: 40px;
+            /* White text */
+            /*padding: 10px 24px;
+            /* Some padding */
+            cursor: pointer;
+            /* Pointer/hand icon */
+            float: left;
+            /* Float the buttons side by side */
+        }
+
+        /* Clear floats (clearfix hack) */
+        .btn-group:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+            border-right: none;
+            /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+        .btn-group button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body height=100vh>
+    <h1>Acceleration Data Collector</h1>
+
+    <div class="table">
+
+        <div class="init">
+            <div>
+                <div style="clear: both">
+                    <h2 id="phoneleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
+                    <h2 id="phoneright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
+                    <h2 style="float: left">Phone connection </h2>
+                    
+                </div>
+
+                <div style="clear: both">
+                    
+                    <h2 id="esenseleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
+                    <h2 id="esenseright" style="float: inline-start"> R &#9744;  &#160; &#160;</h2>
+                    <h2 style="float: left">eSense connection</h2>
+                </div>
+
+                <div style="clear: both">
+                    
+                    <h2 id="watchleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
+                    <h2 id="watchright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
+                    <h2 style="float: left">Watch connection </h2>
+                </div>
+               
+                
+                
+
+                
+
+
+            </div>
+            <div>
+                <form id="form" action="">
+                    <label for="cars">Select user ID:</label>
+                    <select name="user_id" id="user_id">
+                        <option value="user_01">User 1</option>
+                        <option value="user_02">User 2</option>
+                        <option value="user_03">User 3</option>
+                        <option value="user_04">User 4</option>
+                        <option value="user_05">User 5</option>
+                        <option value="user_06">User 6</option>
+                        <option value="user_07">User 7</option>
+                        <option value="user_08">User 8</option>
+                    </select>
+
+
+                    <input id="input" type="submit" value="Submit ID">
+                </form>
+
+                <p>Select an exercise:</p>
+
+                <div class="btn-group">
+                    <script>
+                        function getURL1() { return 'http://localhost:3000/vid1'; }
+                        function getURL2() { return 'http://localhost:3000/vid2'; }
+                        function getURL3() { return 'http://localhost:3000/vid3'; }
+                    </script>
+                    <button id = "ex1"
+                        onclick= "startEx1()">Exercise 1</button>
+                    </button>
+                    <button id = "ex2"
+                        onclick= "startEx2()">Exercise 2</button>
+                    </button>
+                    <button id = "ex3"
+                        onclick= "startEx3()">Exercise 3</button>
+                    </button>
+                    <!--
+                    <button id = "ex2"
+                        onclick="window.open(getURL2(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes');">Exercise
+                        2</button>
+                    <button id = "ex3"
+                        onclick="window.open(getURL3(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes');">Exercise
+                        3</button>-->
+                </div>
+            </div>
+            <div></div>
+
+            <div class="btn-group" id="buttonContainer">
+                <p id="p_button">Recording not started yet</p>
+                <button id="button" onclick="startRecording()"><i class="fas fa-play" style="font-size:30px;"></i>
+                    <p>Start data recording</p>
+                </button>
+
+            </div>
+
+
+        </div>
+        <div></div>
+        <div class="container" height=100vh>
+            <!-- 
+            <div height=100vh>
+                <script>
+                    function getURL() { return 'http://localhost:3000/vid'; }
+                </script>
+                <a
+                    onclick="window.open(getURL(), '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
+                    Share Page
+                </a>
+              
+            <h3> Video Instructions </h3>
+           
+            <iframe width=98% height=700 src="https://youtube.com/embed/KPG1tJW8dwQ">
+            </iframe>
+            </div>-->
+
+
+
+            <!--<ul id="dataPhone">
+                <lh>Phone Accelerometer:</lh>
+            </ul>
+            <ul id="dataESense">
+                <lh>eSense Accelerometer:</lh>
+            </ul>
+            <ul id="dataWatch">
+                <lh>Watch Accelerometer:</lh>
+            </ul>-->
+            <div class=charts>
+                <h2>Phone Accelerometer:</h2>
+                <canvas id="mycanvas1" width="500" height="200"></canvas>
+                <canvas id="canvasPhoneR" width="500" height="200"></canvas>
+            </div>
+            <div class=charts>
+                <h2>eSense Accelerometer:</h2>
+                <canvas id="mycanvas2" width="500" height="200"></canvas>
+                <canvas id="canvasEsenseR" width="500" height="200"></canvas>
+            </div>
+            <div class=charts>
+                <h2>Watch Accelerometer:</h2>
+                <canvas id="mycanvas3" width="500" height="200"></canvas>
+                <canvas id="canvasWatchR" width="500" height="200"></canvas>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var phone_accel_x = 0;
+        var phone_accel_y = 0;
+        var phone_accel_z = 0;
+        var esense_accel_x = 0;
+        var esense_accel_y = 0;
+        var esense_accel_z = 0;
+        var watch_accel_x = 0;
+        var watch_accel_y = 0;
+        var watch_accel_z = 0;
+        var phoneR_accel_x = 0;
+        var phoneR_accel_y = 0;
+        var phoneR_accel_z = 0;
+        var esenseR_accel_x = 0;
+        var esenseR_accel_y = 0;
+        var esenseR_accel_z = 0;
+        var watchR_accel_x = 0;
+        var watchR_accel_y = 0;
+        var watchR_accel_z = 0;
+        var socket = io();
+
+        //var messages = document.getElementById('messages');
+        var dataPhone = document.getElementById('dataPhone');
+        var dataESense = document.getElementById('dataESense');
+        var dataWatch = document.getElementById('dataWatch');
+        //var form = document.getElementById('form');
+        //var input = document.getElementById('input');
+
+        /*form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value);
+                input.value = '';
+            }
+        });*/
+
+        var form = document.getElementById('form');
+        var input = document.getElementById('user_id');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('user id', input.value);
+                //input.value = '';
+            }
+        });
+
+
+        socket.on('phone accel data left', function (msg) {
+            // var item = document.createElement('li');
+            // item.textContent = msg;
+            // dataPhone.appendChild(item);
+            var res = msg.split(",");
+            phone_accel_x = res[1];
+            phone_accel_y = res[2]
+            phone_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('esense data left', function (msg) {
+            //var item = document.createElement('li');
+            //item.textContent = msg;
+            //dataESense.appendChild(item);
+            var res = msg.split(",");
+            esense_accel_x = res[1];
+            esense_accel_y = res[2]
+            esense_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('watch accel data left', function (msg) {
+            //var item = document.createElement('li');
+            //item.textContent = msg;
+            //dataWatch.appendChild(item);
+            var res = msg.split(",");
+            watch_accel_x = res[1];
+            watch_accel_y = res[2]
+            watch_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('phone accel data right', function (msg) {
+            // var item = document.createElement('li');
+            // item.textContent = msg;
+            // dataPhone.appendChild(item);
+            var res = msg.split(",");
+            phoneR_accel_x = res[1];
+            phoneR_accel_y = res[2]
+            phoneR_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('esense data right', function (msg) {
+            //var item = document.createElement('li');
+            //item.textContent = msg;
+            //dataESense.appendChild(item);
+            var res = msg.split(",");
+            esenseR_accel_x = res[1];
+            esenseR_accel_y = res[2]
+            esenseR_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('watch accel data right', function (msg) {
+            //var item = document.createElement('li');
+            //item.textContent = msg;
+            //dataWatch.appendChild(item);
+            var res = msg.split(",");
+            watchR_accel_x = res[1];
+            watchR_accel_y = res[2]
+            watchR_accel_z = res[3]
+            //window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('phone side connect', function (msg) {
+            if (msg == "left")  {
+            var x = document.getElementById("phoneleft");
+            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+
+            if (msg == "right")  {
+            var x = document.getElementById("phoneright");
+            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+        });
+
+        socket.on('esense side connect', function (msg) {
+            if (msg == "left")  {
+            var x = document.getElementById("esenseleft");
+            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+
+            if (msg == "right")  {
+            var x = document.getElementById("esenseright");
+            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+        });
+
+        socket.on('watch side connect', function (msg) {
+            if (msg == "left")  {
+            var x = document.getElementById("watchleft");
+            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+
+            if (msg == "right")  {
+            var x = document.getElementById("watchright");
+            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            }
+        });
+
+        socket.on('start ex1!', () => {
+            window.open(getURL1(), '_self');
+        });
+
+        socket.on('start ex2!', () => {
+            //window.open(getURL2(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes'); in new window
+            window.open(getURL2(), '_self');
+        });
+
+        socket.on('start ex3!', () => {
+            window.open(getURL3(), '_self');
+        });
+        
+
+        var pushed = false;
+        var x = document.getElementById("p_button");
+        var y = document.getElementById("button");
+
+        function startRecording() {
+            if (!pushed) {
+                x.innerHTML = "Started data recording";
+                y.innerHTML = "Stop data recording";
+                socket.emit('start recording');
+                pushed = true;
+            } else {
+                x.innerHTML = "Stopped data recording";
+                y.innerHTML = "Start data recording again";
+                socket.emit('stop recording');
+                pushed = false;
+
+            }
+        }
+
+        function startEx1() {
+           
+                socket.emit('start ex1?');
+               
+        }
+        function startEx2() {
+           
+           socket.emit('start ex2?');
+          
+         }
+         function startEx3() {
+           
+           socket.emit('start ex3?');
+          
+        }
+   
+      
+
+
+        var smoothie1 = new SmoothieChart();
+        smoothie1.streamTo(document.getElementById("mycanvas1"), 100);
+
+        // Data
+        var line1 = new TimeSeries();
+        var line2 = new TimeSeries();
+        var line3 = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line1.append(new Date().getTime(), phone_accel_x);
+            line2.append(new Date().getTime(), phone_accel_y);
+            line3.append(new Date().getTime(), phone_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie1.addTimeSeries(line3, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie1.addTimeSeries(line2, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
+
+
+        var smoothie2 = new SmoothieChart();
+        smoothie2.streamTo(document.getElementById("mycanvas2"), 100);
+
+        // Data
+        var line21 = new TimeSeries();
+        var line22 = new TimeSeries();
+        var line23 = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line21.append(new Date().getTime(), esense_accel_x);
+            line22.append(new Date().getTime(), esense_accel_y);
+            line23.append(new Date().getTime(), esense_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie2.addTimeSeries(line23, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        smoothie2.addTimeSeries(line21, { strokeStyle: 'rgb(255, 0, 255)',/* fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie2.addTimeSeries(line22, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+
+
+        var smoothie3 = new SmoothieChart();
+        smoothie3.streamTo(document.getElementById("mycanvas3"), 100);
+
+        // Data
+        var line31 = new TimeSeries();
+        var line32 = new TimeSeries();
+        var line33 = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line31.append(new Date().getTime(), watch_accel_x);
+            line32.append(new Date().getTime(), watch_accel_y);
+            line33.append(new Date().getTime(), watch_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie3.addTimeSeries(line33, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
+        smoothie3.addTimeSeries(line31, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie3.addTimeSeries(line32, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+
+
+
+
+
+
+        var smoothie1R = new SmoothieChart();
+        smoothie1R.streamTo(document.getElementById("canvasPhoneR"), 100);
+
+        // Data
+        var line1R = new TimeSeries();
+        var line2R = new TimeSeries();
+        var line3R = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line1R.append(new Date().getTime(), phoneR_accel_x);
+            line2R.append(new Date().getTime(), phoneR_accel_y);
+            line3R.append(new Date().getTime(), phoneR_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie1R.addTimeSeries(line3R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        smoothie1R.addTimeSeries(line1R, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie1R.addTimeSeries(line2R, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
+
+
+        var smoothie2R = new SmoothieChart();
+        smoothie2R.streamTo(document.getElementById("canvasEsenseR"), 100);
+
+        // Data
+        var line21R = new TimeSeries();
+        var line22R = new TimeSeries();
+        var line23R = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line21R.append(new Date().getTime(), esenseR_accel_x);
+            line22R.append(new Date().getTime(), esenseR_accel_y);
+            line23R.append(new Date().getTime(), esenseR_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie2R.addTimeSeries(line23R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        smoothie2R.addTimeSeries(line21R, { strokeStyle: 'rgb(255, 0, 255)',/* fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie2R.addTimeSeries(line22R, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+
+
+        var smoothie3R = new SmoothieChart();
+        smoothie3R.streamTo(document.getElementById("canvasWatchR"), 100);
+
+        // Data
+        var line31R = new TimeSeries();
+        var line32R = new TimeSeries();
+        var line33R = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line31R.append(new Date().getTime(), watchR_accel_x);
+            line32R.append(new Date().getTime(), watchR_accel_y);
+            line33R.append(new Date().getTime(), watchR_accel_z);
+        }, 100);
+
+        // Add to SmoothieChart
+        smoothie3R.addTimeSeries(line33R, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
+        smoothie3R.addTimeSeries(line31R, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
+        smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+
+
+
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>
