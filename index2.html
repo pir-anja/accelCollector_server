@@ -163,28 +163,22 @@
                     <h2 id="phoneleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
                     <h2 id="phoneright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
                     <h2 style="float: left">Phone connection </h2>
-                    
+
                 </div>
 
                 <div style="clear: both">
-                    
+
                     <h2 id="esenseleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
-                    <h2 id="esenseright" style="float: inline-start"> R &#9744;  &#160; &#160;</h2>
+                    <h2 id="esenseright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
                     <h2 style="float: left">eSense connection</h2>
                 </div>
 
                 <div style="clear: both">
-                    
+
                     <h2 id="watchleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
                     <h2 id="watchright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
                     <h2 style="float: left">Watch connection </h2>
                 </div>
-               
-                
-                
-
-                
-
 
             </div>
             <div>
@@ -213,14 +207,11 @@
                         function getURL2() { return 'http://localhost:3000/vid2'; }
                         function getURL3() { return 'http://localhost:3000/vid3'; }
                     </script>
-                    <button id = "ex1"
-                        onclick= "startEx1()">Exercise 1</button>
+                    <button id="ex1" onclick="startEx1()">Exercise 1</button>
                     </button>
-                    <button id = "ex2"
-                        onclick= "startEx2()">Exercise 2</button>
+                    <button id="ex2" onclick="startEx2()">Exercise 2</button>
                     </button>
-                    <button id = "ex3"
-                        onclick= "startEx3()">Exercise 3</button>
+                    <button id="ex3" onclick="startEx3()">Exercise 3</button>
                     </button>
                     <!--
                     <button id = "ex2"
@@ -287,7 +278,7 @@
                 <canvas id="mycanvas3" width="500" height="200"></canvas>
                 <canvas id="canvasWatchR" width="500" height="200"></canvas>
             </div>
-            
+
         </div>
     </div>
 
@@ -410,41 +401,43 @@
         });
 
         socket.on('phone side connect', function (msg) {
-            if (msg == "left")  {
-            var x = document.getElementById("phoneleft");
-            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "left") {
+                var x = document.getElementById("phoneleft");
+                x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
 
-            if (msg == "right")  {
-            var x = document.getElementById("phoneright");
-            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "right") {
+                var x = document.getElementById("phoneright");
+                x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
         });
 
         socket.on('esense side connect', function (msg) {
-            if (msg == "left")  {
-            var x = document.getElementById("esenseleft");
-            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "left") {
+                var x = document.getElementById("esenseleft");
+                x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
 
-            if (msg == "right")  {
-            var x = document.getElementById("esenseright");
-            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "right") {
+                var x = document.getElementById("esenseright");
+                x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
         });
 
         socket.on('watch side connect', function (msg) {
-            if (msg == "left")  {
-            var x = document.getElementById("watchleft");
-            x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "left") {
+                var x = document.getElementById("watchleft");
+                x.innerHTML = " L <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
 
-            if (msg == "right")  {
-            var x = document.getElementById("watchright");
-            x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
+            if (msg == "right") {
+                var x = document.getElementById("watchright");
+                x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
         });
+        
 
+        /*
         socket.on('start ex1!', () => {
             window.open(getURL1(), '_self');
         });
@@ -456,8 +449,8 @@
 
         socket.on('start ex3!', () => {
             window.open(getURL3(), '_self');
-        });
-        
+        });*/
+
 
         var pushed = false;
         var x = document.getElementById("p_button");
@@ -479,22 +472,22 @@
         }
 
         function startEx1() {
-           
-                socket.emit('start ex1?');
-               
+
+            socket.emit('start ex1?');
+
         }
         function startEx2() {
-           
-           socket.emit('start ex2?');
-          
-         }
-         function startEx3() {
-           
-           socket.emit('start ex3?');
-          
+
+            socket.emit('start ex2?');
+
         }
-   
-      
+        function startEx3() {
+
+            socket.emit('start ex3?');
+
+        }
+
+
 
 
         var smoothie1 = new SmoothieChart();
@@ -627,13 +620,7 @@
         smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
-
-
-
     </script>
-
-
-
 
 
 </body>

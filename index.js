@@ -133,11 +133,15 @@ app.get('/', (req, res) => {
 app.get('/vid1', (req, res) => {
   res.sendFile(__dirname + '/vid1.html');
 });
-app.get('/vid2', (req, res) => {
-  res.sendFile(__dirname + '/vid2.html');
+
+app.get('/exercise1', (req, res) => {
+  res.sendFile(__dirname + '/exercise1.html');
 });
-app.get('/vid3', (req, res) => {
-  res.sendFile(__dirname + '/vid3.html');
+app.get('/exercise2', (req, res) => {
+  res.sendFile(__dirname + '/exercise2.html');
+});
+app.get('/exercise3', (req, res) => {
+  res.sendFile(__dirname + '/exercise3.html');
 });
 
 var user_id = "user_00";
