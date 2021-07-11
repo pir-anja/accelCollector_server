@@ -123,6 +123,20 @@ watchleftgyrolog = function(d) {
   watch_left_gyro_log_stdout.write(util.format(d) + '\n');
 };
 
+var eSense_right_converted_log_file = fs.createWriteStream(__dirname + '/eSenseRightConvertedData.log', {flags : 'w'});
+var eSense_right_converted_log_stdout = process.stdout;
+
+eSenseconvertedrightlog = function(d) { 
+  eSense_right_converted_log_file.write(util.format(d) + '\n');
+  eSense_right_converted_log_stdout.write(util.format(d) + '\n');
+};
+var eSense_left_converted_log_file = fs.createWriteStream(__dirname + '/eSenseLeftConvertedData.log', {flags : 'w'});
+var eSense_left_converted_log_stdout = process.stdout;
+
+eSenseconvertedleftlog = function(d) { 
+  eSense_left_converted_log_file.write(util.format(d) + '\n');
+  eSense_left_converted_log_stdout.write(util.format(d) + '\n');
+};
 
 
 
@@ -243,6 +257,18 @@ io.on('connection', (socket) => {
     watchrightlog(msg);
   });
 
+  socket.on('esense converted data right', (msg) => {
+    io.emit('esense converted data right', msg);
+    //console.log('eSense data: ' + msg);
+    eSenseconvertedrightlog(msg);
+  });
+
+  socket.on('esense converted data left', (msg) => {
+    io.emit('esense converted data left', msg);
+    //console.log('eSense data: ' + msg);
+    eSenseconvertedleftlog(msg);
+  });
+
   socket.on('start recording', () => {
     phonelog(user_id);
     eSenselog(user_id);
@@ -256,6 +282,8 @@ io.on('connection', (socket) => {
     phoneleftmagneticlog(user_id);
     watchrightgyrolog(user_id);
     watchleftgyrolog(user_id);
+    eSenseconvertedrightlog(user_id);
+    eSenseconvertedleftlog(user_id);
     socket.broadcast.emit('start recording');
     console.log('started recording!');
 
