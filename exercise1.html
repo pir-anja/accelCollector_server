@@ -33,7 +33,13 @@
       var video = document.getElementById('vid');
       video.play();
 
-      
+      setTimeout(
+        function() {
+          const timestamp = Date.now();
+          socket.emit('jump', timestamp);
+      }, 5000);
+
+     
     });
 
 

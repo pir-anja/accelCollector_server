@@ -159,6 +159,7 @@ app.get('/exercise3', (req, res) => {
 });
 
 var user_id = "user_00";
+var timestamp = -100;
 
 io.on('connection', (socket) => {
 
@@ -327,8 +328,11 @@ io.on('connection', (socket) => {
     user_id = msg;
   });
 
-  
-
+  socket.on('jump', (msg) => {
+    timestamp = msg;
+    phonelog('jumped at ' + timestamp);
+  });
+ 
 
   socket.on('disconnect', () => {
     console.log(`Socket ${socket.id} disconnected.`);
