@@ -74,12 +74,12 @@
 
         .init {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 3fr 1fr;
         }
 
         .table {
             display: grid;
-            grid-template-rows: 4fr 1fr 36r;
+            grid-template-rows: 4fr 1fr;
             padding-left: 10px;
 
         }
@@ -122,7 +122,7 @@
             border: 1px solid green;
             /* Green border */
             color: white;
-            width: 85px;
+            width: 8vw;
             height: 40px;
             /* White text */
             /*padding: 10px 24px;
@@ -202,16 +202,38 @@
                 <p>Select an exercise:</p>
 
                 <div class="btn-group">
-                    <script>
+                    <!-- <script>
                         function getURL1() { return 'http://localhost:3000/vid1'; }
                         function getURL2() { return 'http://localhost:3000/vid2'; }
                         function getURL3() { return 'http://localhost:3000/vid3'; }
-                    </script>
-                    <button id="ex1" onclick="startEx1()">Exercise 1</button>
+                        function getURL4() { return 'http://localhost:3000/vid4'; }
+                        function getURL5() { return 'http://localhost:3000/vid5'; }
+                        function getURL6() { return 'http://localhost:3000/vid6'; }
+                        function getURL7() { return 'http://localhost:3000/vid7'; }
+                        function getURL8() { return 'http://localhost:3000/vid8'; }
+                        function getURL9() { return 'http://localhost:3000/vid9'; }
+                    </script>-->
+                    <button id="ex1" onclick="startEx(1)">1 Neck Rolls</button>
                     </button>
-                    <button id="ex2" onclick="startEx2()">Exercise 2</button>
+                    <button id="ex2" onclick="startEx(2)">2 Half Armrotation</button>
                     </button>
-                    <button id="ex3" onclick="startEx3()">Exercise 3</button>
+                    <button id="ex3" onclick="startEx(3)">3 Overhead Side Reach</button>
+                    </button>
+                    <button id="ex4" onclick="startEx(4)">4 Front Kicks</button>
+                    </button>
+                    <button id="ex5" onclick="startEx(5)">5 Cross Toe Touches</button>
+                    </button>
+                </div>
+                <div class="btn-group">
+                    <button id="ex6" onclick="startEx(6)">6 High Knee Pulls</button>
+                    </button>
+                    <button id="ex7" onclick="startEx(7)">7 Jumping Jacks</button>
+                    </button>
+                    <button id="ex8" onclick="startEx(8)">8 Side to Side Jumps</button>
+                    </button>
+                    <button id="ex9" onclick="startEx(9)">9 Curtsy Lunges</button>
+                    </button>
+                    <button id="ex10" onclick="startEx(10)">10 Jog in Place</button>
                     </button>
                     <!--
                     <button id = "ex2"
@@ -222,7 +244,7 @@
                         3</button>-->
                 </div>
             </div>
-            <div></div>
+             <!--<div></div>-->
 
             <div class="btn-group" id="buttonContainer">
                 <p id="p_button">Recording not started yet</p>
@@ -471,7 +493,7 @@
             }
         }
 
-        function startEx1() {
+        /*function startEx1() {
 
             socket.emit('start ex1?');
 
@@ -484,6 +506,11 @@
         function startEx3() {
 
             socket.emit('start ex3?');
+
+        }*/
+        function startEx(msg) {
+
+            socket.emit('start ex?', msg);
 
         }
 

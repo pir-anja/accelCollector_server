@@ -148,15 +148,36 @@ app.get('/vid1', (req, res) => {
   res.sendFile(__dirname + '/vid1.html');
 });
 
-app.get('/exercise1', (req, res) => {
-  res.sendFile(__dirname + '/exercise1.html');
+app.get('/exercises', (req, res) => {
+  res.sendFile(__dirname + '/exercises.html');
 });
-app.get('/exercise2', (req, res) => {
+/*app.get('/ex2', (req, res) => {
   res.sendFile(__dirname + '/exercise2.html');
 });
-app.get('/exercise3', (req, res) => {
+app.get('/ex3', (req, res) => {
   res.sendFile(__dirname + '/exercise3.html');
 });
+app.get('/ex4', (req, res) => {
+  res.sendFile(__dirname + '/exercise4.html');
+});
+app.get('/ex5', (req, res) => {
+  res.sendFile(__dirname + '/exercise5.html');
+});
+app.get('/ex6', (req, res) => {
+  res.sendFile(__dirname + '/exercise6.html');
+});
+app.get('/ex7', (req, res) => {
+  res.sendFile(__dirname + '/exercise7.html');
+});
+app.get('/ex8', (req, res) => {
+  res.sendFile(__dirname + '/exercise8.html');
+});
+app.get('/ex9', (req, res) => {
+  res.sendFile(__dirname + '/exercise9.html');
+});
+app.get('/ex10', (req, res) => {
+  res.sendFile(__dirname + '/exercise10.html');
+});*/
 
 var user_id = "user_00";
 var timestamp = -100;
@@ -171,7 +192,7 @@ io.on('connection', (socket) => {
     console.log('message: ' + msg);
   });
 
-  socket.on('start ex1?', () => {
+  /*socket.on('start ex1?', () => {
    socket.broadcast.emit('start ex1!');
     console.log('start exercise 1');
   });
@@ -184,6 +205,12 @@ io.on('connection', (socket) => {
    socket.on('start ex3?', () => {
     socket.broadcast.emit('start ex3!');
      console.log('start exercise 3');
+   });*/
+
+   socket.on('start ex?', (msg) => {
+    //socket.broadcast.emit('start ex' + msg + '!');
+    socket.broadcast.emit('start ex!', msg);
+     console.log('start exercise ' + msg);
    });
 
   socket.on('phone accel data left', (msg) => {
