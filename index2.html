@@ -18,11 +18,6 @@
             color: white;
         }
 
-        /*#form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }*/
-
         #dataPhone {
             list-style-type: none;
             margin: 0;
@@ -202,17 +197,6 @@
                 <p>Select an exercise:</p>
 
                 <div class="btn-group">
-                    <!-- <script>
-                        function getURL1() { return 'http://localhost:3000/vid1'; }
-                        function getURL2() { return 'http://localhost:3000/vid2'; }
-                        function getURL3() { return 'http://localhost:3000/vid3'; }
-                        function getURL4() { return 'http://localhost:3000/vid4'; }
-                        function getURL5() { return 'http://localhost:3000/vid5'; }
-                        function getURL6() { return 'http://localhost:3000/vid6'; }
-                        function getURL7() { return 'http://localhost:3000/vid7'; }
-                        function getURL8() { return 'http://localhost:3000/vid8'; }
-                        function getURL9() { return 'http://localhost:3000/vid9'; }
-                    </script>-->
                     <button id="ex1" onclick="startEx(1)">1 Neck Rolls</button>
                     </button>
                     <button id="ex2" onclick="startEx(2)">2 Half Armrotation</button>
@@ -235,16 +219,9 @@
                     </button>
                     <button id="ex10" onclick="startEx(10)">10 Jog in Place</button>
                     </button>
-                    <!--
-                    <button id = "ex2"
-                        onclick="window.open(getURL2(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes');">Exercise
-                        2</button>
-                    <button id = "ex3"
-                        onclick="window.open(getURL3(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes');">Exercise
-                        3</button>-->
                 </div>
             </div>
-             <!--<div></div>-->
+            <!--<div></div>-->
 
             <div class="btn-group" id="buttonContainer">
                 <p id="p_button">Recording not started yet</p>
@@ -258,33 +235,6 @@
         </div>
         <div></div>
         <div class="container" height=100vh>
-            <!-- 
-            <div height=100vh>
-                <script>
-                    function getURL() { return 'http://localhost:3000/vid'; }
-                </script>
-                <a
-                    onclick="window.open(getURL(), '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');">
-                    Share Page
-                </a>
-              
-            <h3> Video Instructions </h3>
-           
-            <iframe width=98% height=700 src="https://youtube.com/embed/KPG1tJW8dwQ">
-            </iframe>
-            </div>-->
-
-
-
-            <!--<ul id="dataPhone">
-                <lh>Phone Accelerometer:</lh>
-            </ul>
-            <ul id="dataESense">
-                <lh>eSense Accelerometer:</lh>
-            </ul>
-            <ul id="dataWatch">
-                <lh>Watch Accelerometer:</lh>
-            </ul>-->
             <div class=charts>
                 <h2>Phone Accelerometer:</h2>
                 <canvas id="mycanvas1" width="500" height="200"></canvas>
@@ -304,9 +254,7 @@
         </div>
     </div>
 
-    <!-- <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form> -->
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var phone_accel_x = 0;
@@ -333,16 +281,7 @@
         var dataPhone = document.getElementById('dataPhone');
         var dataESense = document.getElementById('dataESense');
         var dataWatch = document.getElementById('dataWatch');
-        //var form = document.getElementById('form');
-        //var input = document.getElementById('input');
-
-        /*form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (input.value) {
-                socket.emit('chat message', input.value);
-                input.value = '';
-            }
-        });*/
+        
 
         var form = document.getElementById('form');
         var input = document.getElementById('user_id');
@@ -457,21 +396,6 @@
                 x.innerHTML = " R <font color = #4CAF50> &#9745;</font> &#160; &#160;";
             }
         });
-        
-
-        /*
-        socket.on('start ex1!', () => {
-            window.open(getURL1(), '_self');
-        });
-
-        socket.on('start ex2!', () => {
-            //window.open(getURL2(), '_blank', 'location=yes,height=620,width=1200,scrollbars=yes,status=yes'); in new window
-            window.open(getURL2(), '_self');
-        });
-
-        socket.on('start ex3!', () => {
-            window.open(getURL3(), '_self');
-        });*/
 
 
         var pushed = false;
@@ -493,21 +417,7 @@
             }
         }
 
-        /*function startEx1() {
-
-            socket.emit('start ex1?');
-
-        }
-        function startEx2() {
-
-            socket.emit('start ex2?');
-
-        }
-        function startEx3() {
-
-            socket.emit('start ex3?');
-
-        }*/
+        
         function startEx(msg) {
 
             socket.emit('start ex?', msg);
@@ -515,7 +425,7 @@
         }
 
 
-
+//smoothie charts acceleration data visualisation on GUI
 
         var smoothie1 = new SmoothieChart();
         smoothie1.streamTo(document.getElementById("mycanvas1"), 100);

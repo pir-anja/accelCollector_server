@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Video Exercise Nr. 1</title>
+  <title id="title">Video Exercise Nr. 1</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -19,60 +19,84 @@
     <iframe width=98% height=600 src="https://youtube.com/embed/KPG1tJW8dwQ">
     </iframe>-->
 
-  <video id="vid" width = 78%
-    src="file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise1.mp4" type='video/mp4' />
+  <video id="vid" width=78% src="file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise1.mp4"
+    type='video/mp4' />
   </video>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io();
-
     var video = document.getElementById('vid');
+    var jumpTime;
 
     socket.on('start ex!', (msg) => {
       switch (msg) {
-            case 1:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise1.mp4";
-              break;
-            case 2:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise2.mp4";
-              break;
-            case 3:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise3.mp4";
-              break;
-            case 4:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise4.mp4";
-              break;
-            case 5:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise5.mp4";
-              break;
-            case 6:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise6.mp4";
-              break;
-            case 7:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise7.mp4";
-              break;
-            case 8:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise8.mp4";
-              break;
-              case 9:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise9.mp4";
-              break;
-            case 10:
-              video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise10.mp4";
-              break;
-          }
+        case 1:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise1.mp4";
+          jumpTime = 11060;
+          document.title = "Video Exercise Nr. 1";
+          break;
+        case 2:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise2.mp4";
+          jumpTime = 10110;
+          document.title = "Video Exercise Nr. 2";
+          break;
+        case 3:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise3.mp4";
+          jumpTime = 11040;
+          document.title = "Video Exercise Nr. 3";
+          break;
+        case 4:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise4.mp4";
+          jumpTime = 10010;
+          document.title = "Video Exercise Nr. 4";
+          break;
+        case 5:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise5.mp4";
+          jumpTime = 10020;
+          document.title = "Video Exercise Nr. 5";
+          break;
+        case 6:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise6.mp4";
+          jumpTime = 10110;
+          document.title = "Video Exercise Nr. 6";
+          break;
+        case 7:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise7.mp4";
+          jumpTime = 10140;
+          document.title = "Video Exercise Nr. 7";
+          break;
+        case 8:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise8.mp4";
+          jumpTime = 10080;
+          document.title = "Video Exercise Nr. 8";
+          break;
+        case 9:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise9.mp4";
+          jumpTime = 10210;
+          document.title = "Video Exercise Nr. 9";
+          break;
+        case 10:
+          video.src = "file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/exercise10.mp4";
+          jumpTime = 10050;
+          document.title = "Video Exercise Nr. 10";
+          break;
+      }
       //alert('ex 1');
-      
+
       video.play();
 
-      setTimeout(
+      const timestamp = Date.now();
+      socket.emit('started vid', timestamp);
+      socket.emit('jump', timestamp + jumpTime);
+
+      /*setTimeout(
         function() {
           const timestamp = Date.now();
           socket.emit('jump', timestamp);
-      }, 24000);
+      }, 10110);*/
 
-     
+
     });
 
 

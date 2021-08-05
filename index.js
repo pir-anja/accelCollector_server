@@ -5,140 +5,139 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-
-/* const io = require("socket.io")(server, {
-  cors: {
-    origin: "file:///C:/Users/anja/Documents/SS21/BA/socket.IO_accelCollector/index3.html",
-    methods: ["GET", "POST"]
-  }
-});*/
-
-/*overload the default console.log function so that it writes into a log file
 var fs = require('fs');
 var util = require('util');
-var log_file = fs.createWriteStream(__dirname + '/accel.log', {flags : 'w'});
-var log_stdout = process.stdout;
 
-console.log = function(d) { 
-  log_file.write(util.format(d) + '\n');
-  log_stdout.write(util.format(d) + '\n');
-};
-//*/
-
-var fs = require('fs');
-var util = require('util');
-var phone_log_file = fs.createWriteStream(__dirname + '/phoneLeftAccelData.log', {flags : 'w'});
+//creates separate log files for every sensor: accelerometer, gyroscope and magnetometer if available
+var phone_log_file = fs.createWriteStream(__dirname + '/phoneLeftAccelData.log', { flags: 'w' });
 var phone_log_stdout = process.stdout;
 
-phonelog = function(d) { 
+phonelog = function (d) {
   phone_log_file.write(util.format(d) + '\n');
   phone_log_stdout.write(util.format(d) + '\n');
 };
 
-var eSense_log_file = fs.createWriteStream(__dirname + '/eSenseLeftData.log', {flags : 'w'});
+var eSense_log_file = fs.createWriteStream(__dirname + '/eSenseLeftData.log', { flags: 'w' });
 var eSense_log_stdout = process.stdout;
 
-eSenselog = function(d) { 
+eSenselog = function (d) {
   eSense_log_file.write(util.format(d) + '\n');
   eSense_log_stdout.write(util.format(d) + '\n');
 };
 
-var watch_log_file = fs.createWriteStream(__dirname + '/watchLeftAccelData.log', {flags : 'w'});
+var watch_log_file = fs.createWriteStream(__dirname + '/watchLeftAccelData.log', { flags: 'w' });
 var watch_log_stdout = process.stdout;
 
-watchlog = function(d) { 
+watchlog = function (d) {
   watch_log_file.write(util.format(d) + '\n');
   watch_log_stdout.write(util.format(d) + '\n');
 };
 
-var phone_right_log_file = fs.createWriteStream(__dirname + '/phoneRightAccelData.log', {flags : 'w'});
+var phone_right_log_file = fs.createWriteStream(__dirname + '/phoneRightAccelData.log', { flags: 'w' });
 var phone_right_log_stdout = process.stdout;
 
-phonerightlog = function(d) { 
+phonerightlog = function (d) {
   phone_right_log_file.write(util.format(d) + '\n');
   phone_right_log_stdout.write(util.format(d) + '\n');
 };
 
-var eSense_right_log_file = fs.createWriteStream(__dirname + '/eSenseRightData.log', {flags : 'w'});
+var eSense_right_log_file = fs.createWriteStream(__dirname + '/eSenseRightData.log', { flags: 'w' });
 var eSense_right_log_stdout = process.stdout;
 
-eSenserightlog = function(d) { 
+eSenserightlog = function (d) {
   eSense_right_log_file.write(util.format(d) + '\n');
   eSense_right_log_stdout.write(util.format(d) + '\n');
 };
 
-var watch_right_log_file = fs.createWriteStream(__dirname + '/watchRightAccelData.log', {flags : 'w'});
+var watch_right_log_file = fs.createWriteStream(__dirname + '/watchRightAccelData.log', { flags: 'w' });
 var watch_right_log_stdout = process.stdout;
 
-watchrightlog = function(d) { 
+watchrightlog = function (d) {
   watch_right_log_file.write(util.format(d) + '\n');
   watch_right_log_stdout.write(util.format(d) + '\n');
 };
 
-var phone_right_gyro_log_file = fs.createWriteStream(__dirname + '/phoneRightGyroData.log', {flags : 'w'});
+var phone_right_gyro_log_file = fs.createWriteStream(__dirname + '/phoneRightGyroData.log', { flags: 'w' });
 var phone_right_gyro_log_stdout = process.stdout;
 
-phonerightgyrolog = function(d) { 
+phonerightgyrolog = function (d) {
   phone_right_gyro_log_file.write(util.format(d) + '\n');
   phone_right_gyro_log_stdout.write(util.format(d) + '\n');
 };
 
-var phone_left_gyro_log_file = fs.createWriteStream(__dirname + '/phoneLeftGyroData.log', {flags : 'w'});
+var phone_left_gyro_log_file = fs.createWriteStream(__dirname + '/phoneLeftGyroData.log', { flags: 'w' });
 var phone_left_gyro_log_stdout = process.stdout;
 
-phoneleftgyrolog = function(d) { 
+phoneleftgyrolog = function (d) {
   phone_left_gyro_log_file.write(util.format(d) + '\n');
   phone_left_gyro_log_stdout.write(util.format(d) + '\n');
 };
 
-var phone_right_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneRightMagneticData.log', {flags : 'w'});
+var phone_right_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneRightMagneticData.log', { flags: 'w' });
 var phone_right_magnetic_log_stdout = process.stdout;
 
-phonerightmagneticlog = function(d) { 
+phonerightmagneticlog = function (d) {
   phone_right_magnetic_log_file.write(util.format(d) + '\n');
   phone_right_magnetic_log_stdout.write(util.format(d) + '\n');
 };
 
-var phone_left_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneLeftMagneticData.log', {flags : 'w'});
+var phone_left_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneLeftMagneticData.log', { flags: 'w' });
 var phone_left_magnetic_log_stdout = process.stdout;
 
-phoneleftmagneticlog = function(d) { 
+phoneleftmagneticlog = function (d) {
   phone_left_magnetic_log_file.write(util.format(d) + '\n');
   phone_left_magnetic_log_stdout.write(util.format(d) + '\n');
 };
 
-var watch_right_gyro_log_file = fs.createWriteStream(__dirname + '/watchRightGyroData.log', {flags : 'w'});
+var watch_right_gyro_log_file = fs.createWriteStream(__dirname + '/watchRightGyroData.log', { flags: 'w' });
 var watch_right_gyro_log_stdout = process.stdout;
 
-watchrightgyrolog = function(d) { 
+watchrightgyrolog = function (d) {
   watch_right_gyro_log_file.write(util.format(d) + '\n');
   watch_right_gyro_log_stdout.write(util.format(d) + '\n');
 };
 
-var watch_left_gyro_log_file = fs.createWriteStream(__dirname + '/watchLeftGyroData.log', {flags : 'w'});
+var watch_left_gyro_log_file = fs.createWriteStream(__dirname + '/watchLeftGyroData.log', { flags: 'w' });
 var watch_left_gyro_log_stdout = process.stdout;
 
-watchleftgyrolog = function(d) { 
+watchleftgyrolog = function (d) {
   watch_left_gyro_log_file.write(util.format(d) + '\n');
   watch_left_gyro_log_stdout.write(util.format(d) + '\n');
 };
 
-var eSense_right_converted_log_file = fs.createWriteStream(__dirname + '/eSenseRightConvertedData.log', {flags : 'w'});
+var eSense_right_converted_log_file = fs.createWriteStream(__dirname + '/eSenseRightConvertedData.log', { flags: 'w' });
 var eSense_right_converted_log_stdout = process.stdout;
 
-eSenseconvertedrightlog = function(d) { 
+eSenseconvertedrightlog = function (d) {
   eSense_right_converted_log_file.write(util.format(d) + '\n');
   eSense_right_converted_log_stdout.write(util.format(d) + '\n');
 };
-var eSense_left_converted_log_file = fs.createWriteStream(__dirname + '/eSenseLeftConvertedData.log', {flags : 'w'});
+var eSense_left_converted_log_file = fs.createWriteStream(__dirname + '/eSenseLeftConvertedData.log', { flags: 'w' });
 var eSense_left_converted_log_stdout = process.stdout;
 
-eSenseconvertedleftlog = function(d) { 
+eSenseconvertedleftlog = function (d) {
   eSense_left_converted_log_file.write(util.format(d) + '\n');
   eSense_left_converted_log_stdout.write(util.format(d) + '\n');
 };
 
+logAll = function (input) {
+  phonelog(input);
+  eSenselog(input);
+  watchlog(input);
+  phonerightlog(input);
+  eSenserightlog(input);
+  watchrightlog(input);
+  phoneleftgyrolog(input);
+  phonerightgyrolog(input);
+  phonerightmagneticlog(input);
+  phoneleftmagneticlog(input);
+  watchrightgyrolog(input);
+  watchleftgyrolog(input);
+  eSenseconvertedrightlog(input);
+  eSenseconvertedleftlog(input);
+}
 
+//different views for study director and user
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index2.html');
@@ -151,33 +150,8 @@ app.get('/vid1', (req, res) => {
 app.get('/exercises', (req, res) => {
   res.sendFile(__dirname + '/exercises.html');
 });
-/*app.get('/ex2', (req, res) => {
-  res.sendFile(__dirname + '/exercise2.html');
-});
-app.get('/ex3', (req, res) => {
-  res.sendFile(__dirname + '/exercise3.html');
-});
-app.get('/ex4', (req, res) => {
-  res.sendFile(__dirname + '/exercise4.html');
-});
-app.get('/ex5', (req, res) => {
-  res.sendFile(__dirname + '/exercise5.html');
-});
-app.get('/ex6', (req, res) => {
-  res.sendFile(__dirname + '/exercise6.html');
-});
-app.get('/ex7', (req, res) => {
-  res.sendFile(__dirname + '/exercise7.html');
-});
-app.get('/ex8', (req, res) => {
-  res.sendFile(__dirname + '/exercise8.html');
-});
-app.get('/ex9', (req, res) => {
-  res.sendFile(__dirname + '/exercise9.html');
-});
-app.get('/ex10', (req, res) => {
-  res.sendFile(__dirname + '/exercise10.html');
-});*/
+
+//socket events
 
 var user_id = "user_00";
 var timestamp = -100;
@@ -185,33 +159,20 @@ var timestamp = -100;
 io.on('connection', (socket) => {
 
   console.log(`Socket ${socket.id} connected.`);
-  
+
 
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
     console.log('message: ' + msg);
   });
 
-  /*socket.on('start ex1?', () => {
-   socket.broadcast.emit('start ex1!');
-    console.log('start exercise 1');
-  });
 
-  socket.on('start ex2?', () => {
-    socket.broadcast.emit('start ex2!');
-     console.log('start exercise 2');
-   });
-
-   socket.on('start ex3?', () => {
-    socket.broadcast.emit('start ex3!');
-     console.log('start exercise 3');
-   });*/
-
-   socket.on('start ex?', (msg) => {
+  socket.on('start ex?', (msg) => {
     //socket.broadcast.emit('start ex' + msg + '!');
     socket.broadcast.emit('start ex!', msg);
-     console.log('start exercise ' + msg);
-   });
+    console.log('start exercise ' + msg);
+    logAll('start exercise ' + msg);
+  });
 
   socket.on('phone accel data left', (msg) => {
     io.emit('phone accel data left', msg);
@@ -220,13 +181,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('phone gyro data left', (msg) => {
-    
+
     //console.log('phone data: ' + msg);
     phoneleftgyrolog(msg);
   });
 
   socket.on('phone magnetic data left', (msg) => {
-    
+
     //console.log('phone data: ' + msg);
     phoneleftmagneticlog(msg);
   });
@@ -262,13 +223,13 @@ io.on('connection', (socket) => {
   });
 
   socket.on('phone gyro data right', (msg) => {
-    
+
     //console.log('phone data: ' + msg);
     phonerightgyrolog(msg);
   });
 
   socket.on('phone magnetic data right', (msg) => {
-    
+
     //console.log('phone data: ' + msg);
     phonerightmagneticlog(msg);
   });
@@ -298,20 +259,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('start recording', () => {
-    phonelog(user_id);
-    eSenselog(user_id);
-    watchlog(user_id);
-    phonerightlog(user_id);
-    eSenserightlog(user_id);
-    watchrightlog(user_id);
-    phoneleftgyrolog(user_id);
-    phonerightgyrolog(user_id);
-    phonerightmagneticlog(user_id);
-    phoneleftmagneticlog(user_id);
-    watchrightgyrolog(user_id);
-    watchleftgyrolog(user_id);
-    eSenseconvertedrightlog(user_id);
-    eSenseconvertedleftlog(user_id);
     socket.broadcast.emit('start recording');
     console.log('started recording!');
 
@@ -320,7 +267,7 @@ io.on('connection', (socket) => {
   socket.on('stop recording', () => {
     socket.broadcast.emit('stop recording');
     console.log('stopped recording!');
-    
+
   });
 
   socket.on('phone side connect', (msg) => {
@@ -333,9 +280,9 @@ io.on('connection', (socket) => {
     console.log('Phone connected');
   });
 
-  
+
   socket.on('esense side connect', (msg) => {
-    socket.broadcast.emit('esense side connect',msg);
+    socket.broadcast.emit('esense side connect', msg);
     console.log('eSense ' + msg + ' connected');
   });
 
@@ -353,13 +300,22 @@ io.on('connection', (socket) => {
     //io.emit('user id', msg);
     console.log('user id: ' + msg);
     user_id = msg;
+    logAll('user id: ' + user_id);
   });
 
   socket.on('jump', (msg) => {
-    timestamp = msg;
-    phonelog('jumped at ' + timestamp);
+    //timestamp = msg;
+    //phonelog('jumped at ' + timestamp);
+    logAll('expect jump at ' + msg);
+    console.log('expect jump at ' + msg);
   });
- 
+
+  socket.on('started vid', (msg) => {
+    //timestamp = msg;
+    //phonelog('jumped at ' + timestamp);
+    logAll('started video at ' + msg);
+    console.log('started video at ' + msg);
+  });
 
   socket.on('disconnect', () => {
     console.log(`Socket ${socket.id} disconnected.`);
@@ -369,6 +325,8 @@ io.on('connection', (socket) => {
 server.listen(3000, () => {
   console.log('listening on *:3000');
 });
+
+
 
 
 
