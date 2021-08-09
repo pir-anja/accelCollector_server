@@ -8,8 +8,11 @@ const io = new Server(server);
 var fs = require('fs');
 var util = require('util');
 
+var curr_dir = '/Default';
+var root_dir = '/UserStudy_Data';
+
 //creates separate log files for every sensor: accelerometer, gyroscope and magnetometer if available
-var phone_log_file = fs.createWriteStream(__dirname + '/phoneLeftAccelData.log', { flags: 'w' });
+var phone_log_file = fs.createWriteStream(__dirname + root_dir + curr_dir + '/phoneLeftAccelData.log', { flags: 'w' });
 var phone_log_stdout = process.stdout;
 
 phonelog = function (d) {
@@ -171,7 +174,10 @@ io.on('connection', (socket) => {
     //socket.broadcast.emit('start ex' + msg + '!');
     socket.broadcast.emit('start ex!', msg);
     console.log('start exercise ' + msg);
+    //curr_dir = '/Exercise 1';
     logAll('start exercise ' + msg);
+    socket.emit('button press');
+  
   });
 
   socket.on('phone accel data left', (msg) => {

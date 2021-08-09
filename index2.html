@@ -155,24 +155,24 @@
         <div class="init">
             <div>
                 <div style="clear: both">
-                    <h2 id="phoneleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
-                    <h2 id="phoneright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
-                    <h2 style="float: left">Phone connection </h2>
+                    <p id="phoneleft" style="float: inline-start"> L &#9744; &#160; &#160;</p>
+                    <p id="phoneright" style="float: inline-start"> R &#9744; &#160; &#160;</p>
+                    <p style="float: left">Phone connection </p>
 
                 </div>
 
                 <div style="clear: both">
 
-                    <h2 id="esenseleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
-                    <h2 id="esenseright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
-                    <h2 style="float: left">eSense connection</h2>
+                    <p id="esenseleft" style="float: inline-start"> L &#9744; &#160; &#160;</p>
+                    <p id="esenseright" style="float: inline-start"> R &#9744; &#160; &#160;</p>
+                    <p style="float: left">eSense connection</p>
                 </div>
 
                 <div style="clear: both">
 
-                    <h2 id="watchleft" style="float: inline-start"> L &#9744; &#160; &#160;</h2>
-                    <h2 id="watchright" style="float: inline-start"> R &#9744; &#160; &#160;</h2>
-                    <h2 style="float: left">Watch connection </h2>
+                    <p id="watchleft" style="float: inline-start"> L &#9744; &#160; &#160;</p>
+                    <p id="watchright" style="float: inline-start"> R &#9744; &#160; &#160;</p>
+                    <p style="float: left">Watch connection </p>
                 </div>
 
             </div>
@@ -192,6 +192,18 @@
 
 
                     <input id="input" type="submit" value="Submit ID">
+                </form>
+
+                <form id="form" action="">
+                    <label for="cars">Select Exercise Pace:</label>
+                    <select name="user_id" id="user_id">
+                        <option value="user_01">Slow</option>
+                        <option value="user_02">Normal</option>
+                        <option value="user_03">Fast</option>
+                    </select>
+
+
+                    <input id="input" type="submit" value="Submit Pace">
                 </form>
 
                 <p>Select an exercise:</p>
@@ -423,6 +435,13 @@
             socket.emit('start ex?', msg);
 
         }
+
+        socket.on('button press', () => {
+            x.innerHTML = "Started data recording";
+            y.innerHTML = "Stop data recording";
+            socket.emit('start recording');
+            pushed = true;
+        });
 
 
 //smoothie charts acceleration data visualisation on GUI
