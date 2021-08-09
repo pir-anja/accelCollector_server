@@ -8,11 +8,85 @@ const io = new Server(server);
 var fs = require('fs');
 var util = require('util');
 
-var curr_dir = '/Default';
 var root_dir = '/UserStudy_Data';
+var curr_user;
+var curr_pace;
+var curr_exercise;
 
+var files = {};
+
+const Pace = {
+  Slow: 'Slow',
+  Normal: 'Normal',
+  Fast: 'Fast',
+};
+
+const Exercise = {
+  Exercise1: 'Exercise1',
+  Exercise2: 'Exercise2',
+  Exercise3: 'Exercise3',
+  Exercise4: 'Exercise4',
+  Exercise5: 'Exercise5',
+  Exercise6: 'Exercise6',
+  Exercise7: 'Exercise7',
+  Exercise8: 'Exercise8',
+  Exercise9: 'Exercise9',
+  Exercise10: 'Exercise10',
+};
+
+const User = {
+  User1: 'User1',
+  User2: 'User2',
+  User3: 'User3',
+  User4: 'User4',
+  User5: 'User5',
+  User6: 'User6',
+  User7: 'User7',
+  User8: 'User8',
+};
+
+const Device = {
+  Phone_left: 'Phone_left',
+  Phone_right: 'Phone_right',
+  eSense_left: 'eSense_left',
+  eSense_right: 'eSense_right',
+  Watch_left: 'Watch_left',
+  Watch_right: 'Watch_right',
+};
+
+
+//create all write streams: associative array 'files' with User1_Exercise1_Slow_Phone_left_accel / gyro / magnet
+for (var u = 0; u < Object.keys(User).length; u++) {
+  for (var e = 0; e < Object.keys(Exercise).length; e++) {
+    for (var p = 0; p < Object.keys(Pace).length; p++) {
+      for (var d = 0; d < Object.keys(Device).length; d++) {
+        files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accel.log', { flags: 'w' });
+        files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_gyro.log', { flags: 'w' });
+        if ( (Object.keys(Device))[d] != 'eSense_left' && (Object.keys(Device))[d] != 'eSense_right') {
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_magnet'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_magnet.log', { flags: 'w' });
+        } else {
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accelConverted'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accelConverted.log', { flags: 'w' });
+        }
+      
+      }
+    }
+  }
+}
+
+//test
+files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
+
+
+//logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
+logData = function (device, dataKind, msg) {
+  files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
+};
+
+
+
+/*
 //creates separate log files for every sensor: accelerometer, gyroscope and magnetometer if available
-var phone_log_file = fs.createWriteStream(__dirname + root_dir + curr_dir + '/phoneLeftAccelData.log', { flags: 'w' });
+var phone_log_file = fs.createWriteStream(__dirname + '/phoneLeftAccelData.log', { flags: 'w' });
 var phone_log_stdout = process.stdout;
 
 phonelog = function (d) {
@@ -138,7 +212,7 @@ logAll = function (input) {
   watchleftgyrolog(input);
   eSenseconvertedrightlog(input);
   eSenseconvertedleftlog(input);
-}
+}*/
 
 //different views for study director and user
 
@@ -175,93 +249,108 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('start ex!', msg);
     console.log('start exercise ' + msg);
     //curr_dir = '/Exercise 1';
-    logAll('start exercise ' + msg);
+    //logAll('start exercise ' + msg);
     socket.emit('button press');
-  
+    curr_exercise = 'Exercise' + msg;
   });
 
   socket.on('phone accel data left', (msg) => {
     io.emit('phone accel data left', msg);
     //console.log('phone data: ' + msg);
-    phonelog(msg);
+    //phonelog(msg);
+    logData('Phone_left', 'accel', msg);
   });
 
   socket.on('phone gyro data left', (msg) => {
 
     //console.log('phone data: ' + msg);
-    phoneleftgyrolog(msg);
+    //phoneleftgyrolog(msg);
+    logData('Phone_left', 'gyro', msg);
   });
 
   socket.on('phone magnetic data left', (msg) => {
 
     //console.log('phone data: ' + msg);
-    phoneleftmagneticlog(msg);
+    //phoneleftmagneticlog(msg);
+    logData('Phone_left', 'magnet', msg);
   });
 
   socket.on('esense data left', (msg) => {
     io.emit('esense data left', msg);
     //console.log('eSense data: ' + msg);
-    eSenselog(msg);
+    //eSenselog(msg);
+    logData('eSense_left', 'accel', msg);
   });
 
   socket.on('watch accel data left', (msg) => {
     io.emit('watch accel data left', msg);
     //console.log('watch data: ' + msg);
-    watchlog(msg);
+    //watchlog(msg);
+    logData('Watch_left', 'accel', msg);
   });
 
   socket.on('watch gyro data left', (msg) => {
     //io.emit('watch gyro data left', msg);
     //console.log('watch data: ' + msg);
-    watchleftgyrolog(msg);
+    //watchleftgyrolog(msg);
+    logData('Watch_left', 'gyro', msg);
   });
 
   socket.on('watch gyro data right', (msg) => {
     //io.emit('watch gyro data left', msg);
     //console.log('watch data: ' + msg);
-    watchrightgyrolog(msg);
+    //watchrightgyrolog(msg);
+    logData('Watch_right', 'gyro', msg);
   });
 
   socket.on('phone accel data right', (msg) => {
     io.emit('phone accel data right', msg);
     //console.log('phone data: ' + msg);
-    phonerightlog(msg);
+    //phonerightlog(msg);
+    logData('Phone_right', 'accel', msg);
+    
   });
 
   socket.on('phone gyro data right', (msg) => {
 
     //console.log('phone data: ' + msg);
-    phonerightgyrolog(msg);
+    //phonerightgyrolog(msg);
+    logData('Phone_right', 'gyro', msg);
   });
 
   socket.on('phone magnetic data right', (msg) => {
 
     //console.log('phone data: ' + msg);
-    phonerightmagneticlog(msg);
+    //phonerightmagneticlog(msg);
+    logData('Phone_right', 'magnet', msg);
   });
 
   socket.on('esense data right', (msg) => {
     io.emit('esense data right', msg);
     //console.log('eSense data: ' + msg);
-    eSenserightlog(msg);
+    //eSenserightlog(msg);
+    logData('eSense_right', 'accel', msg);
   });
 
   socket.on('watch accel data right', (msg) => {
     io.emit('watch accel data right', msg);
     //console.log('watch data: ' + msg);
-    watchrightlog(msg);
+    //watchrightlog(msg);
+    logData('Watch_right', 'accel', msg);
   });
 
   socket.on('esense converted data right', (msg) => {
-    io.emit('esense converted data right', msg);
+    //io.emit('esense converted data right', msg);
     //console.log('eSense data: ' + msg);
-    eSenseconvertedrightlog(msg);
+    //eSenseconvertedrightlog(msg);
+    logData('eSense_right', 'accelConverted', msg);
   });
 
   socket.on('esense converted data left', (msg) => {
-    io.emit('esense converted data left', msg);
+    //io.emit('esense converted data left', msg);
     //console.log('eSense data: ' + msg);
-    eSenseconvertedleftlog(msg);
+    //eSenseconvertedleftlog(msg);
+    logData('eSense_left', 'accelConverted', msg);
   });
 
   socket.on('start recording', () => {
@@ -305,8 +394,17 @@ io.on('connection', (socket) => {
   socket.on('user id', (msg) => {
     //io.emit('user id', msg);
     console.log('user id: ' + msg);
-    user_id = msg;
-    logAll('user id: ' + user_id);
+    //user_id = msg;
+    curr_user = msg;
+    //logAll('user id: ' + user_id);
+  });
+
+  socket.on('pace', (msg) => {
+    //io.emit('user id', msg);
+    console.log('pace: ' + msg);
+    //user_id = msg;
+    curr_pace = msg;
+    //logAll('user id: ' + user_id);
   });
 
   socket.on('jump', (msg) => {

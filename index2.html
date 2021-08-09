@@ -101,7 +101,11 @@
             padding-top: 0px;
         }
 
-        #form {
+        #form_user {
+            padding-top: 30px;
+        }
+
+        #form_pace {
             padding-top: 30px;
         }
 
@@ -177,29 +181,29 @@
 
             </div>
             <div>
-                <form id="form" action="">
+                <form id="form_user" action="">
                     <label for="cars">Select user ID:</label>
                     <select name="user_id" id="user_id">
-                        <option value="user_01">User 1</option>
-                        <option value="user_02">User 2</option>
-                        <option value="user_03">User 3</option>
-                        <option value="user_04">User 4</option>
-                        <option value="user_05">User 5</option>
-                        <option value="user_06">User 6</option>
-                        <option value="user_07">User 7</option>
-                        <option value="user_08">User 8</option>
+                        <option value="User1">User 1</option>
+                        <option value="User2">User 2</option>
+                        <option value="User3">User 3</option>
+                        <option value="User4">User 4</option>
+                        <option value="User5">User 5</option>
+                        <option value="User6">User 6</option>
+                        <option value="User7">User 7</option>
+                        <option value="User8">User 8</option>
                     </select>
 
 
                     <input id="input" type="submit" value="Submit ID">
                 </form>
 
-                <form id="form" action="">
-                    <label for="cars">Select Exercise Pace:</label>
-                    <select name="user_id" id="user_id">
-                        <option value="user_01">Slow</option>
-                        <option value="user_02">Normal</option>
-                        <option value="user_03">Fast</option>
+                <form id="form_pace" action="">
+                    <label for="cars2">Select Exercise Pace:</label>
+                    <select name="pace" id="pace">
+                        <option value="Slow">Slow</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Fast">Fast</option>
                     </select>
 
 
@@ -295,17 +299,27 @@
         var dataWatch = document.getElementById('dataWatch');
         
 
-        var form = document.getElementById('form');
-        var input = document.getElementById('user_id');
+        var form_user = document.getElementById('form_user');
+        var input_user = document.getElementById('user_id');
 
-        form.addEventListener('submit', function (e) {
+        form_user.addEventListener('submit', function (e) {
             e.preventDefault();
-            if (input.value) {
-                socket.emit('user id', input.value);
+            if (input_user.value) {
+                socket.emit('user id', input_user.value);
                 //input.value = '';
             }
         });
 
+        var form_pace = document.getElementById('form_pace');
+        var input_pace = document.getElementById('pace');
+
+        form_pace.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (input_pace.value) {
+                socket.emit('pace', input_pace.value);
+                //input.value = '';
+            }
+        });
 
         socket.on('phone accel data left', function (msg) {
             // var item = document.createElement('li');
