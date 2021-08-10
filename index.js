@@ -246,7 +246,8 @@ io.on('connection', (socket) => {
 
   socket.on('start ex?', (msg) => {
     //socket.broadcast.emit('start ex' + msg + '!');
-    socket.broadcast.emit('start ex!', msg);
+    socket.broadcast.emit('start ex!', msg + ',' + curr_pace);
+    
     console.log('start exercise ' + msg);
     //curr_dir = '/Exercise 1';
     //logAll('start exercise ' + msg);
@@ -417,7 +418,8 @@ io.on('connection', (socket) => {
   socket.on('started vid', (msg) => {
     //timestamp = msg;
     //phonelog('jumped at ' + timestamp);
-    logAll('started video at ' + msg);
+    //logAll('started video at ' + msg);
+    logData('Phone_left', 'accel', 'started video at ' + msg);
     console.log('started video at ' + msg);
   });
 
