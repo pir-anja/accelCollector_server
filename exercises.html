@@ -20,7 +20,7 @@
     </iframe>-->
 
   <video id="vid" width=78% src="file:///C:/Users/anja/Documents/SS21/BA/VideoInstructions/StudyClips/Normal/exercise1.mp4"
-    type='video/mp4' />
+    type='video/mp4' onended="stopDataRecording()" />
   </video>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -38,6 +38,7 @@
       //alert('ex' + exercise + '-' + pace);
       video.src = root_dir + '/' + pace + '/exercise' + exercise + '.mp4';
       document.title = "Exercise Nr. " + exercise + ' - ' + pace;
+     
       /*
       switch (exercise) {
         case 1:
@@ -93,21 +94,27 @@
       }*/
       
       video.play();
-
+      
       const timestamp = Date.now();
       socket.emit('started vid', timestamp);
       //socket.emit('jump', timestamp + jumpTime);
-
+      //video.onended(exercise);
       /*setTimeout(
         function() {
           const timestamp = Date.now();
           socket.emit('jump', timestamp);
       }, 10110);*/
-
-
+      /*video.onended = function(e) {
+        alert('stop vid' + e);
+      }*/
+      //video.addEventListener('ended', stopDataRecording(exercise), false);
     });
 
 
+    function stopDataRecording(e) {
+      //alert('stop vid');
+      socket.emit('stop vid');
+    }
   </script>
 
 </body>

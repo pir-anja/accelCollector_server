@@ -79,7 +79,11 @@ files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
 
 //logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
 logData = function (device, dataKind, msg) {
+  if(msg === undefined) {
+    return;
+  } else {
   files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
+  }
 };
 
 
@@ -251,8 +255,18 @@ io.on('connection', (socket) => {
     console.log('start exercise ' + msg);
     //curr_dir = '/Exercise 1';
     //logAll('start exercise ' + msg);
-    socket.emit('button press');
+    socket.emit('button press start');
     curr_exercise = 'Exercise' + msg;
+  });
+
+  socket.on('stop vid', () => {
+    //socket.broadcast.emit('start ex' + msg + '!');
+      
+    console.log('finished exercise');
+    //curr_dir = '/Exercise 1';
+    //logAll('start exercise ' + msg);
+    io.emit('button press stop');
+    //curr_exercise = 'Exercise' + msg;
   });
 
   socket.on('phone accel data left', (msg) => {

@@ -450,11 +450,19 @@
 
         }
 
-        socket.on('button press', () => {
+        socket.on('button press start', () => {
             x.innerHTML = "Started data recording";
             y.innerHTML = "Stop data recording";
             socket.emit('start recording');
             pushed = true;
+        });
+
+        socket.on('button press stop', () => {
+            //alert('alert');
+            x.innerHTML = "Stopped data recording";
+            y.innerHTML = "Start data recording again";
+            socket.emit('stop recording');
+            pushed = false;
         });
 
 
