@@ -60,11 +60,13 @@ for (var u = 0; u < Object.keys(User).length; u++) {
   for (var e = 0; e < Object.keys(Exercise).length; e++) {
     for (var p = 0; p < Object.keys(Pace).length; p++) {
       for (var d = 0; d < Object.keys(Device).length; d++) {
-        files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accel.log', { flags: 'w' });
-        files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_gyro.log', { flags: 'w' });
+        
         if ( (Object.keys(Device))[d] != 'eSense_left' && (Object.keys(Device))[d] != 'eSense_right') {
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accel.log', { flags: 'w' });
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_gyro.log', { flags: 'w' });
           files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_magnet'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_magnet.log', { flags: 'w' });
         } else {
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_all'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_all.log', { flags: 'w' });
           files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accelConverted'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accelConverted.log', { flags: 'w' });
         }
       
@@ -74,7 +76,7 @@ for (var u = 0; u < Object.keys(User).length; u++) {
 }
 
 //test
-files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
+//files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
 
 
 //logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
@@ -294,7 +296,7 @@ io.on('connection', (socket) => {
     io.emit('esense data left', msg);
     //console.log('eSense data: ' + msg);
     //eSenselog(msg);
-    logData('eSense_left', 'accel', msg);
+    logData('eSense_left', 'all', msg);
   });
 
   socket.on('watch accel data left', (msg) => {
@@ -344,7 +346,7 @@ io.on('connection', (socket) => {
     io.emit('esense data right', msg);
     //console.log('eSense data: ' + msg);
     //eSenserightlog(msg);
-    logData('eSense_right', 'accel', msg);
+    logData('eSense_right', 'all', msg);
   });
 
   socket.on('watch accel data right', (msg) => {
