@@ -79,6 +79,39 @@ for (var u = 0; u < Object.keys(User).length; u++) {
 //files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
 
 
+//insert headers that describe the CSV data format
+for (var u = 0; u < Object.keys(User).length; u++) {
+  for (var e = 0; e < Object.keys(Exercise).length; e++) {
+    for (var p = 0; p < Object.keys(Pace).length; p++) {
+      
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_accel'].write(util.format('Phone left accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_gyro'].write(util.format('Phone left gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_magnet'].write(util.format('Phone left magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_right_accel'].write(util.format('Phone right accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_right_gyro'].write(util.format('Phone right gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_right_magnet'].write(util.format('Phone right magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_left_accel'].write(util.format('Watch left accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_left_gyro'].write(util.format('Watch left gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_left_magnet'].write(util.format('Watch left magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_right_accel'].write(util.format('Watch right accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_right_gyro'].write(util.format('Watch right gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_right_magnet'].write(util.format('Watch right magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_left_all'].write(util.format('eSense left accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,_gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_left_accelConverted'].write(util.format('eSense left accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
+
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_all'].write(util.format('eSense right accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,_gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_accelConverted'].write(util.format('eSense right accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
+      
+      
+    }
+  }
+}
+
+
 //logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
 logData = function (device, dataKind, msg) {
   if(msg === undefined) {
