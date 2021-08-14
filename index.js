@@ -114,7 +114,7 @@ for (var u = 0; u < Object.keys(User).length; u++) {
 
 //logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
 logData = function (device, dataKind, msg) {
-  if(msg === undefined) {
+  if(typeof(msg) == 'undefined') {
     return;
   } else {
   files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
