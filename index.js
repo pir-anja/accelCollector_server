@@ -256,11 +256,11 @@ logAll = function (input) {
 //different views for study director and user
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index2.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/vid1', (req, res) => {
-  res.sendFile(__dirname + '/vid1.html');
+  res.sendFile(__dirname + '/webcam_test.html');
 });
 
 app.get('/exercises', (req, res) => {
