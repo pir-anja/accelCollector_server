@@ -60,30 +60,29 @@ for (var u = 0; u < Object.keys(User).length; u++) {
   for (var e = 0; e < Object.keys(Exercise).length; e++) {
     for (var p = 0; p < Object.keys(Pace).length; p++) {
       for (var d = 0; d < Object.keys(Device).length; d++) {
-        
-        if ( (Object.keys(Device))[d] != 'eSense_left' && (Object.keys(Device))[d] != 'eSense_right') {
-          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accel.log', { flags: 'w' });
-          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_gyro.log', { flags: 'w' });
-          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_magnet'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_magnet.log', { flags: 'w' });
+
+        if ((Object.keys(Device))[d] != 'eSense_left' && (Object.keys(Device))[d] != 'eSense_right') {
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] + '_accel.log', { flags: 'w' });
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] + '_gyro.log', { flags: 'w' });
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_magnet'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] + '_magnet.log', { flags: 'w' });
         } else {
-          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_all'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_all.log', { flags: 'w' });
-          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accelConverted'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] +'_accelConverted.log', { flags: 'w' });
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_all'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] + '_all.log', { flags: 'w' });
+          files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_' + (Object.keys(Device))[d] + '_accelConverted'] = fs.createWriteStream(__dirname + root_dir + '/' + (Object.keys(User))[u] + '/' + (Object.keys(Exercise))[e] + '/' + (Object.keys(Pace))[p] + '/' + (Object.keys(Device))[d] + '_accelConverted.log', { flags: 'w' });
         }
-      
+
       }
     }
   }
 }
 
 //test
-//files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hi') + '\n');
-
+//files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hello world') + '\n');
 
 //insert headers that describe the CSV data format
 for (var u = 0; u < Object.keys(User).length; u++) {
   for (var e = 0; e < Object.keys(Exercise).length; e++) {
     for (var p = 0; p < Object.keys(Pace).length; p++) {
-      
+
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_accel'].write(util.format('Phone left accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_gyro'].write(util.format('Phone left gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Phone_left_magnet'].write(util.format('Phone left magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
@@ -105,153 +104,22 @@ for (var u = 0; u < Object.keys(User).length; u++) {
 
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_all'].write(util.format('eSense right accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,_gyro_y,gyro_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_accelConverted'].write(util.format('eSense right accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
-      
-      
+
+
     }
   }
 }
 
 
 //logs data to file, e.g. to User1/Exercise2/Slow/Phone_left_gyro.log
+
 logData = function (device, dataKind, msg) {
-  if(typeof(msg) == 'undefined') {
+  if (typeof (msg) == 'undefined') {
     return;
   } else {
-  files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
+    files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
   }
 };
-
-
-
-/*
-//creates separate log files for every sensor: accelerometer, gyroscope and magnetometer if available
-var phone_log_file = fs.createWriteStream(__dirname + '/phoneLeftAccelData.log', { flags: 'w' });
-var phone_log_stdout = process.stdout;
-
-phonelog = function (d) {
-  phone_log_file.write(util.format(d) + '\n');
-  phone_log_stdout.write(util.format(d) + '\n');
-};
-
-var eSense_log_file = fs.createWriteStream(__dirname + '/eSenseLeftData.log', { flags: 'w' });
-var eSense_log_stdout = process.stdout;
-
-eSenselog = function (d) {
-  eSense_log_file.write(util.format(d) + '\n');
-  eSense_log_stdout.write(util.format(d) + '\n');
-};
-
-var watch_log_file = fs.createWriteStream(__dirname + '/watchLeftAccelData.log', { flags: 'w' });
-var watch_log_stdout = process.stdout;
-
-watchlog = function (d) {
-  watch_log_file.write(util.format(d) + '\n');
-  watch_log_stdout.write(util.format(d) + '\n');
-};
-
-var phone_right_log_file = fs.createWriteStream(__dirname + '/phoneRightAccelData.log', { flags: 'w' });
-var phone_right_log_stdout = process.stdout;
-
-phonerightlog = function (d) {
-  phone_right_log_file.write(util.format(d) + '\n');
-  phone_right_log_stdout.write(util.format(d) + '\n');
-};
-
-var eSense_right_log_file = fs.createWriteStream(__dirname + '/eSenseRightData.log', { flags: 'w' });
-var eSense_right_log_stdout = process.stdout;
-
-eSenserightlog = function (d) {
-  eSense_right_log_file.write(util.format(d) + '\n');
-  eSense_right_log_stdout.write(util.format(d) + '\n');
-};
-
-var watch_right_log_file = fs.createWriteStream(__dirname + '/watchRightAccelData.log', { flags: 'w' });
-var watch_right_log_stdout = process.stdout;
-
-watchrightlog = function (d) {
-  watch_right_log_file.write(util.format(d) + '\n');
-  watch_right_log_stdout.write(util.format(d) + '\n');
-};
-
-var phone_right_gyro_log_file = fs.createWriteStream(__dirname + '/phoneRightGyroData.log', { flags: 'w' });
-var phone_right_gyro_log_stdout = process.stdout;
-
-phonerightgyrolog = function (d) {
-  phone_right_gyro_log_file.write(util.format(d) + '\n');
-  phone_right_gyro_log_stdout.write(util.format(d) + '\n');
-};
-
-var phone_left_gyro_log_file = fs.createWriteStream(__dirname + '/phoneLeftGyroData.log', { flags: 'w' });
-var phone_left_gyro_log_stdout = process.stdout;
-
-phoneleftgyrolog = function (d) {
-  phone_left_gyro_log_file.write(util.format(d) + '\n');
-  phone_left_gyro_log_stdout.write(util.format(d) + '\n');
-};
-
-var phone_right_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneRightMagneticData.log', { flags: 'w' });
-var phone_right_magnetic_log_stdout = process.stdout;
-
-phonerightmagneticlog = function (d) {
-  phone_right_magnetic_log_file.write(util.format(d) + '\n');
-  phone_right_magnetic_log_stdout.write(util.format(d) + '\n');
-};
-
-var phone_left_magnetic_log_file = fs.createWriteStream(__dirname + '/phoneLeftMagneticData.log', { flags: 'w' });
-var phone_left_magnetic_log_stdout = process.stdout;
-
-phoneleftmagneticlog = function (d) {
-  phone_left_magnetic_log_file.write(util.format(d) + '\n');
-  phone_left_magnetic_log_stdout.write(util.format(d) + '\n');
-};
-
-var watch_right_gyro_log_file = fs.createWriteStream(__dirname + '/watchRightGyroData.log', { flags: 'w' });
-var watch_right_gyro_log_stdout = process.stdout;
-
-watchrightgyrolog = function (d) {
-  watch_right_gyro_log_file.write(util.format(d) + '\n');
-  watch_right_gyro_log_stdout.write(util.format(d) + '\n');
-};
-
-var watch_left_gyro_log_file = fs.createWriteStream(__dirname + '/watchLeftGyroData.log', { flags: 'w' });
-var watch_left_gyro_log_stdout = process.stdout;
-
-watchleftgyrolog = function (d) {
-  watch_left_gyro_log_file.write(util.format(d) + '\n');
-  watch_left_gyro_log_stdout.write(util.format(d) + '\n');
-};
-
-var eSense_right_converted_log_file = fs.createWriteStream(__dirname + '/eSenseRightConvertedData.log', { flags: 'w' });
-var eSense_right_converted_log_stdout = process.stdout;
-
-eSenseconvertedrightlog = function (d) {
-  eSense_right_converted_log_file.write(util.format(d) + '\n');
-  eSense_right_converted_log_stdout.write(util.format(d) + '\n');
-};
-var eSense_left_converted_log_file = fs.createWriteStream(__dirname + '/eSenseLeftConvertedData.log', { flags: 'w' });
-var eSense_left_converted_log_stdout = process.stdout;
-
-eSenseconvertedleftlog = function (d) {
-  eSense_left_converted_log_file.write(util.format(d) + '\n');
-  eSense_left_converted_log_stdout.write(util.format(d) + '\n');
-};
-
-logAll = function (input) {
-  phonelog(input);
-  eSenselog(input);
-  watchlog(input);
-  phonerightlog(input);
-  eSenserightlog(input);
-  watchrightlog(input);
-  phoneleftgyrolog(input);
-  phonerightgyrolog(input);
-  phonerightmagneticlog(input);
-  phoneleftmagneticlog(input);
-  watchrightgyrolog(input);
-  watchleftgyrolog(input);
-  eSenseconvertedrightlog(input);
-  eSenseconvertedleftlog(input);
-}*/
 
 //different views for study director and user
 
@@ -259,7 +127,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/vid1', (req, res) => {
+app.get('/cam', (req, res) => {
   res.sendFile(__dirname + '/webcam_test.html');
 });
 
@@ -286,120 +154,77 @@ io.on('connection', (socket) => {
   socket.on('start ex?', (msg) => {
     //socket.broadcast.emit('start ex' + msg + '!');
     socket.broadcast.emit('start ex!', msg + ',' + curr_pace);
-    
+
     console.log('start exercise ' + msg);
-    //curr_dir = '/Exercise 1';
-    //logAll('start exercise ' + msg);
     socket.emit('button press start');
     curr_exercise = 'Exercise' + msg;
   });
 
   socket.on('stop vid', () => {
-    //socket.broadcast.emit('start ex' + msg + '!');
-      
     console.log('finished exercise');
-    //curr_dir = '/Exercise 1';
-    //logAll('start exercise ' + msg);
     io.emit('button press stop');
-    //curr_exercise = 'Exercise' + msg;
   });
 
   socket.on('phone accel data left', (msg) => {
     io.emit('phone accel data left', msg);
-    //console.log('phone data: ' + msg);
-    //phonelog(msg);
     logData('Phone_left', 'accel', msg);
   });
 
   socket.on('phone gyro data left', (msg) => {
-
-    //console.log('phone data: ' + msg);
-    //phoneleftgyrolog(msg);
     logData('Phone_left', 'gyro', msg);
   });
 
   socket.on('phone magnetic data left', (msg) => {
-
-    //console.log('phone data: ' + msg);
-    //phoneleftmagneticlog(msg);
     logData('Phone_left', 'magnet', msg);
   });
 
   socket.on('esense data left', (msg) => {
     io.emit('esense data left', msg);
-    //console.log('eSense data: ' + msg);
-    //eSenselog(msg);
     logData('eSense_left', 'all', msg);
   });
 
   socket.on('watch accel data left', (msg) => {
     io.emit('watch accel data left', msg);
-    //console.log('watch data: ' + msg);
-    //watchlog(msg);
     logData('Watch_left', 'accel', msg);
   });
 
   socket.on('watch gyro data left', (msg) => {
-    //io.emit('watch gyro data left', msg);
-    //console.log('watch data: ' + msg);
-    //watchleftgyrolog(msg);
     logData('Watch_left', 'gyro', msg);
   });
 
   socket.on('watch gyro data right', (msg) => {
-    //io.emit('watch gyro data left', msg);
-    //console.log('watch data: ' + msg);
-    //watchrightgyrolog(msg);
     logData('Watch_right', 'gyro', msg);
   });
 
   socket.on('phone accel data right', (msg) => {
     io.emit('phone accel data right', msg);
-    //console.log('phone data: ' + msg);
-    //phonerightlog(msg);
     logData('Phone_right', 'accel', msg);
-    
+
   });
 
   socket.on('phone gyro data right', (msg) => {
-
-    //console.log('phone data: ' + msg);
-    //phonerightgyrolog(msg);
     logData('Phone_right', 'gyro', msg);
   });
 
   socket.on('phone magnetic data right', (msg) => {
-
-    //console.log('phone data: ' + msg);
-    //phonerightmagneticlog(msg);
     logData('Phone_right', 'magnet', msg);
   });
 
   socket.on('esense data right', (msg) => {
     io.emit('esense data right', msg);
-    //console.log('eSense data: ' + msg);
-    //eSenserightlog(msg);
     logData('eSense_right', 'all', msg);
   });
 
   socket.on('watch accel data right', (msg) => {
     io.emit('watch accel data right', msg);
-    //console.log('watch data: ' + msg);
-    //watchrightlog(msg);
     logData('Watch_right', 'accel', msg);
   });
 
   socket.on('esense converted data right', (msg) => {
-    //io.emit('esense converted data right', msg);
-    //console.log('eSense data: ' + msg);
-    //eSenseconvertedrightlog(msg);
     logData('eSense_right', 'accelConverted', msg);
   });
 
   socket.on('esense converted data left', (msg) => {
-    //io.emit('esense converted data left', msg);
-    //console.log('eSense data: ' + msg);
-    //eSenseconvertedleftlog(msg);
     logData('eSense_left', 'accelConverted', msg);
   });
 
@@ -442,32 +267,21 @@ io.on('connection', (socket) => {
   });
 
   socket.on('user id', (msg) => {
-    //io.emit('user id', msg);
     console.log('user id: ' + msg);
-    //user_id = msg;
     curr_user = msg;
-    //logAll('user id: ' + user_id);
   });
 
   socket.on('pace', (msg) => {
-    //io.emit('user id', msg);
     console.log('pace: ' + msg);
-    //user_id = msg;
     curr_pace = msg;
-    //logAll('user id: ' + user_id);
   });
 
   socket.on('jump', (msg) => {
-    //timestamp = msg;
-    //phonelog('jumped at ' + timestamp);
     logAll('expect jump at ' + msg);
     console.log('expect jump at ' + msg);
   });
 
   socket.on('started vid', (msg) => {
-    //timestamp = msg;
-    //phonelog('jumped at ' + timestamp);
-    //logAll('started video at ' + msg);
     logData('Phone_left', 'accel', 'started video at ' + msg);
     console.log('started video at ' + msg);
   });
@@ -481,16 +295,4 @@ server.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
-
-
-
-
-
-/*
-const http2 = require('http');
-const server2 = http2.createServer(app);
-const io2 = require("socket.io")
-server2.listen(8080, () => {
-  console.log('listening on *:8080');
-});*/
 
