@@ -70,7 +70,7 @@
 
         .init {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1fr 1.5fr 1fr;
         }
 
         .table {
@@ -180,6 +180,11 @@
                     <p style="float: left">Watch connection </p>
                 </div>
 
+                <div id='gUMArea' style= "padding-top: 70px;">
+
+                    <button class="btn btn-default" id='gUMbtn'>Request webcam permission</button>
+                </div>
+
             </div>
             <div>
                 <form id="form_user" action="">
@@ -241,23 +246,20 @@
             <!--<div></div>-->
             <div>
 
-                <div class="btn-group" id="buttonContainer">
+                <div class="btn-group" id="buttonContainer" style = "padding-bottom: 20px;">
                     <p id="p_button">Recording not started yet</p>
-                    <button id="button" onclick="startRecording()"><i class="foo fas fa-play"
+                    <button id="button" onclick="startRecording(false)"><i class="foo fas fa-play"
                             style="font-size:30px;"></i>
                         <!--<p>Start data recording</p>-->
                     </button>
 
                 </div>
-
+                <video id="video" autoplay width="360" height="270"></video>
                 <div>
-                    <button id="start-camera">Start webcam stream</button>
-                    <video id="video" autoplay></video>
+                   <!-- <button id="start-camera">Start webcam stream</button>-->
+                   
                     
-                    <div id='gUMArea'>
-
-                        <button class="btn btn-default" id='gUMbtn'>Request webcam permission</button>
-                    </div>
+                    
                     <div id='btns'>
                         <button class="btn btn-default" id='start'>Start webcam recording</button>
                         <button class="btn btn-default" id='stop'>Stop webcam recording</button>
@@ -449,62 +451,71 @@
         var x = document.getElementById("p_button");
         var y = document.getElementById("button");
         //var z = document.getElementById("symbol");
-        let camera_button = document.querySelector("#start-camera");
+        //let camera_button = document.querySelector("#start-camera");
         let video = document.querySelector("#video");
 
         let camera_stream = null;
         let media_recorder = null;
        
-        function startRecording() {
+        function startRecording(videoEnded) {
             if (!pushed) {
-                x.innerHTML = "Started data recording";
-                y.innerHTML = "Stop data recording";
+                x.innerHTML = "Recording";
+                y.innerHTML = "Stop recording";
                 //z.style = "font-size:70px";
                 //z.class = "fas fa-pause";
 
                 socket.emit('start recording');
+                if(!videoEnded) {
+                    socket.emit('resume vid temp');
+                }
                 pushed = true;
             } else {
-                x.innerHTML = "Stopped data recording";
-                y.innerHTML = "Start data recording again";
+                x.innerHTML = "Not recording";
+                y.innerHTML = "Start recording";
+                
                 //z.class = "fas fa-play";
 
                 // $('#download-video')[0].click();
 
                 socket.emit('stop recording');
+                if(!videoEnded) {
+                    socket.emit('pause vid temp');
+                }
                 pushed = false;
 
             }
         }
+
+       
 
         function startEx(msg) {
             socket.emit('start ex?', msg);
         }
 
         socket.on('button press start', () => {
-            x.innerHTML = "Started data recording";
-            y.innerHTML = "Stop data recording";
-            socket.emit('start recording');
+            startRecording(true);
             $('#start').click();
-            pushed = true;
+            
         });
 
         socket.on('button press stop', () => {
             //alert('alert');
-            x.innerHTML = "Stopped data recording";
-            y.innerHTML = "Start data recording again";
-            socket.emit('stop recording');
+           startRecording(true);
             $('#stop').click();
             //media_recorder.stop();
             //$link = $download_link.href;
             //$('#download-video')[0].click();
-            pushed = false;
+           
         });
 
-        camera_button.addEventListener('click', async function () {
+        /*camera_button.addEventListener('click', async function () {
             camera_stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
             video.srcObject = camera_stream;
-        });
+        });*/
+        async function streamWebcam() {
+            camera_stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video.srcObject = camera_stream;
+        }
 
         //smoothie charts acceleration data visualisation on GUI
 
@@ -638,9 +649,8 @@
         smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
-    </script>
+    //webcam
 
-    <script>
         'use strict'
 
         let log = console.log.bind(console),
@@ -672,7 +682,9 @@
                         gUM: { audio: true }
                     }
                 };
+           
             media = mediaOptions.video;
+            streamWebcam();
             navigator.mediaDevices.getUserMedia(media.gUM).then(_stream => {
                 stream = _stream;
                 id('gUMArea').style.display = 'none';
@@ -687,7 +699,10 @@
                     }
                 };
                 log('got media successfully');
+                
             }).catch(log);
+
+           
         }
 
         start.onclick = e => {

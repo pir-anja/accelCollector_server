@@ -137,9 +137,6 @@ app.get('/exercises', (req, res) => {
 
 //socket events
 
-var user_id = "user_00";
-var timestamp = -100;
-
 io.on('connection', (socket) => {
 
   console.log(`Socket ${socket.id} connected.`);
@@ -284,6 +281,18 @@ io.on('connection', (socket) => {
   socket.on('started vid', (msg) => {
     logData('Phone_left', 'accel', 'started video at ' + msg);
     console.log('started video at ' + msg);
+  });
+
+  socket.on('pause vid temp', () => {
+    socket.broadcast.emit('pause vid temp');
+    console.log('pause video');
+
+  });
+
+  socket.on('resume vid temp', () => {
+    socket.broadcast.emit('resume vid temp');
+    console.log('resume video');
+
   });
 
   socket.on('disconnect', () => {
