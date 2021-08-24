@@ -508,6 +508,11 @@
            
         });
 
+        socket.on('alert', () => {
+            alert('Please submit a current user and pace.');
+            
+        });
+
         /*camera_button.addEventListener('click', async function () {
             camera_stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
             video.srcObject = camera_stream;
