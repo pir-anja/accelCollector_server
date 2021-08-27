@@ -43,6 +43,10 @@ const User = {
   User6: 'User6',
   User7: 'User7',
   User8: 'User8',
+  User9: 'User9',
+  User10: 'User10',
+  User11: 'User11',
+  User12: 'User12',
 };
 
 const Device = {
