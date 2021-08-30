@@ -103,10 +103,10 @@ for (var u = 0; u < Object.keys(User).length; u++) {
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_right_gyro'].write(util.format('Watch right gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_Watch_right_magnet'].write(util.format('Watch right magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
 
-      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_left_all'].write(util.format('eSense left accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,_gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_left_all'].write(util.format('eSense left accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_left_accelConverted'].write(util.format('eSense left accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
 
-      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_all'].write(util.format('eSense right accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,_gyro_y,gyro_z') + '\n');
+      files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_all'].write(util.format('eSense right accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z') + '\n');
       files[(Object.keys(User))[u] + '_' + (Object.keys(Exercise))[e] + '_' + (Object.keys(Pace))[p] + '_eSense_right_accelConverted'].write(util.format('eSense right accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
 
 
