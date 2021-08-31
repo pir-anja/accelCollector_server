@@ -14,6 +14,7 @@ var curr_pace;
 var curr_exercise;
 
 var files = {};
+const socketID_map = new Map();
 
 const Pace = {
   Slow: 'Slow',
@@ -252,6 +253,7 @@ io.on('connection', (socket) => {
   socket.on('phone side connect', (msg) => {
     socket.broadcast.emit('phone side connect', msg);
     console.log('Phone ' + msg + ' connected');
+    socketID_map.set(socket.id, 'Phone ' + msg);
   });
 
   socket.on('phone connect', (msg) => {
@@ -263,6 +265,7 @@ io.on('connection', (socket) => {
   socket.on('esense side connect', (msg) => {
     socket.broadcast.emit('esense side connect', msg);
     console.log('eSense ' + msg + ' connected');
+    socketID_map.set(socket.id, 'eSense ' + msg);
   });
 
   socket.on('watch connect', (msg) => {
@@ -273,6 +276,7 @@ io.on('connection', (socket) => {
   socket.on('watch side connect', (msg) => {
     socket.broadcast.emit('watch side connect', msg);
     console.log('Watch ' + msg + ' connected');
+    socketID_map.set(socket.id, 'Watch ' + msg);
   });
 
   socket.on('user id', (msg) => {
@@ -308,7 +312,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`Socket ${socket.id} disconnected.`);
+    //console.log(`Socket ${socket.id} disconnected.`);
+    if (socketID_map.get(socket.id) != null) {
+      console.log (socketID_map.get(socket.id) + ' disconnected.');
+    } else {
+      console.log(`Socket ${socket.id} disconnected.`);
+    }
   });
 });
 
