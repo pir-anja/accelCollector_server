@@ -311,13 +311,11 @@ io.on('connection', (socket) => {
 
   });
 
-  socket.on('disconnect', () => {
+  socket.on('disconnect', (msg) => {
     //console.log(`Socket ${socket.id} disconnected.`);
-    if (socketID_map.get(socket.id) != null) {
-      console.log (socketID_map.get(socket.id) + ' disconnected.');
-    } else {
-      console.log(`Socket ${socket.id} disconnected.`);
-    }
+    
+      console.log (socketID_map.get(socket.id) + ' disconnected because of' + msg);
+    
   });
 });
 
