@@ -3,7 +3,9 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  pingTimeout: 60000, pingInterval: 120000
+});
 
 var fs = require('fs');
 var util = require('util');
