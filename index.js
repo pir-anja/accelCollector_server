@@ -16,7 +16,7 @@ var curr_exercise;
 var files = {};
 const socketID_map = new Map();
 
-const Pace = {
+/*const Pace = {
   Slow: 'Slow',
   Normal: 'Normal',
   Fast: 'Fast',
@@ -48,7 +48,7 @@ const User = {
   User10: 'User10',
   User11: 'User11',
   User12: 'User12',
-};
+};*/
 
 const Device = {
   Phone_left: 'Phone_left',
@@ -59,7 +59,7 @@ const Device = {
   Watch_right: 'Watch_right',
 };
 
-
+/*
 //create all write streams: associative array 'files' with User1_Exercise1_Slow_Phone_left_accel / gyro / magnet
 for (var u = 0; u < Object.keys(User).length; u++) {
   for (var e = 0; e < Object.keys(Exercise).length; e++) {
@@ -78,11 +78,23 @@ for (var u = 0; u < Object.keys(User).length; u++) {
       }
     }
   }
+}*/
+
+function createWriteStreams(u, e, p, d) {
+  if ((d != 'eSense_left') && (d != 'eSense_right')) {
+    files[u + '_' + e + '_' + p + '_' + d + '_accel'] = fs.createWriteStream(__dirname + root_dir + '/' + u + '/' + e + '/' + p + '/' + d + '_accel.log', { flags: 'w' });
+    files[u + '_' + e + '_' + p + '_' + d + '_gyro'] = fs.createWriteStream(__dirname + root_dir + '/' + u + '/' + e + '/' + p + '/' + d + '_gyro.log', { flags: 'w' });
+    files[u + '_' + e + '_' + p + '_' + d + '_magnet'] = fs.createWriteStream(__dirname + root_dir + '/' + u + '/' + e + '/' + p + '/' + d + '_magnet.log', { flags: 'w' });
+  } else {
+    files[u + '_' + e + '_' + p + '_' + d + '_all'] = fs.createWriteStream(__dirname + root_dir + '/' + u + '/' + e + '/' + p + '/' + d + '_all.log', { flags: 'w' });
+    files[u + '_' + e + '_' + p + '_' + d + '_accelConverted'] = fs.createWriteStream(__dirname + root_dir + '/' + u + '/' + e + '/' + p + '/' + d + '_accelConverted.log', { flags: 'w' });
+  }
 }
 
 //test
 //files['User1_Exercise2_Slow_Phone_left_gyro'].write(util.format('hello world') + '\n');
 
+/*
 //insert headers that describe the CSV data format
 for (var u = 0; u < Object.keys(User).length; u++) {
   for (var e = 0; e < Object.keys(Exercise).length; e++) {
@@ -113,6 +125,30 @@ for (var u = 0; u < Object.keys(User).length; u++) {
 
     }
   }
+}*/
+
+function insertHeaders (u, e, p) {
+  files[u + '_' + e + '_' + p + '_Phone_left_accel'].write(util.format('Phone left accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_Phone_left_gyro'].write(util.format('Phone left gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_Phone_left_magnet'].write(util.format('Phone left magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[u + '_' + e + '_' + p + '_Phone_right_accel'].write(util.format('Phone right accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[u + '_' + e + '_' + p + '_Phone_right_gyro'].write(util.format('Phone right gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_Phone_right_magnet'].write(util.format('Phone right magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[u + '_' + e + '_' + p +  '_Watch_left_accel'].write(util.format('Watch left accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_Watch_left_gyro'].write(util.format('Watch left gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p + '_Watch_left_magnet'].write(util.format('Watch left magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[u + '_' + e + '_' + p +  '_Watch_right_accel'].write(util.format('Watch right accelerometer data: timestamp,accel_x,accel_y,accel_z') + '\n');
+      files[u + '_' + e + '_' + p + '_Watch_right_gyro'].write(util.format('Watch right gyroscope data: timestamp,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_Watch_right_magnet'].write(util.format('Watch right magnetometer data: timestamp,magnet_x,magnet_y,magnet_z') + '\n');
+
+      files[u + '_' + e + '_' + p +  '_eSense_left_all'].write(util.format('eSense left accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_eSense_left_accelConverted'].write(util.format('eSense left accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
+
+      files[u + '_' + e + '_' + p +  '_eSense_right_all'].write(util.format('eSense right accelerometer and gyroscope data: timestamp,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z') + '\n');
+      files[u + '_' + e + '_' + p +  '_eSense_right_accelConverted'].write(util.format('eSense right accelerometer data converted to m/s^2: timestamp,accel_x,accel_y,accel_z') + '\n');
 }
 
 
@@ -129,6 +165,7 @@ logData = function (device, dataKind, msg) {
     files[curr_user + '_' + curr_exercise + '_' + curr_pace + '_' + device + '_' + dataKind].write(util.format(msg) + '\n');
   }
 };
+
 
 //different views for study director and user
 
@@ -162,9 +199,15 @@ io.on('connection', (socket) => {
       io.emit('alert');
       return;
     }
-    //socket.broadcast.emit('start ex' + msg + '!');
-    socket.broadcast.emit('start ex!', msg + ',' + curr_pace);
 
+    for (var d = 0; d < Object.keys(Device).length; d++) {
+      //console.log(curr_user, 'Exercise' + msg, curr_pace, (Object.keys(Device))[d]);
+      createWriteStreams(curr_user, 'Exercise' + msg, curr_pace, (Object.keys(Device))[d]);
+    }
+
+    insertHeaders(curr_user, 'Exercise' + msg, curr_pace);
+
+    socket.broadcast.emit('start ex!', msg + ',' + curr_pace);
     console.log('start exercise ' + msg);
     socket.emit('button press start');
     curr_exercise = 'Exercise' + msg;
@@ -313,9 +356,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', (msg) => {
     //console.log(`Socket ${socket.id} disconnected.`);
-    
-      console.log (socketID_map.get(socket.id) + ' disconnected because of' + msg);
-    
+      console.log (socketID_map.get(socket.id) + ' disconnected because of ' + msg);
   });
 });
 
