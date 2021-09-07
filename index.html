@@ -301,23 +301,23 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var phone_accel_x = 0;
-        var phone_accel_y = 0;
-        var phone_accel_z = 0;
+        //var phone_accel_y = 0;
+        //var phone_accel_z = 0;
         var esense_accel_x = 0;
-        var esense_accel_y = 0;
-        var esense_accel_z = 0;
+        //var esense_accel_y = 0;
+        //var esense_accel_z = 0;
         var watch_accel_x = 0;
-        var watch_accel_y = 0;
-        var watch_accel_z = 0;
+        //var watch_accel_y = 0;
+        //var watch_accel_z = 0;
         var phoneR_accel_x = 0;
-        var phoneR_accel_y = 0;
-        var phoneR_accel_z = 0;
+        //var phoneR_accel_y = 0;
+        //var phoneR_accel_z = 0;
         var esenseR_accel_x = 0;
-        var esenseR_accel_y = 0;
-        var esenseR_accel_z = 0;
+        //var esenseR_accel_y = 0;
+        //var esenseR_accel_z = 0;
         var watchR_accel_x = 0;
-        var watchR_accel_y = 0;
-        var watchR_accel_z = 0;
+        //var watchR_accel_y = 0;
+        //var watchR_accel_z = 0;
         var socket = io();
 
         //var messages = document.getElementById('messages');
@@ -354,8 +354,8 @@
             // dataPhone.appendChild(item);
             var res = msg.split(",");
             phone_accel_x = res[1];
-            phone_accel_y = res[2]
-            phone_accel_z = res[3]
+            //phone_accel_y = res[2]
+            //phone_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -365,8 +365,8 @@
             //dataESense.appendChild(item);
             var res = msg.split(",");
             esense_accel_x = res[1];
-            esense_accel_y = res[2]
-            esense_accel_z = res[3]
+            //esense_accel_y = res[2]
+            //esense_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -376,8 +376,8 @@
             //dataWatch.appendChild(item);
             var res = msg.split(",");
             watch_accel_x = res[1];
-            watch_accel_y = res[2]
-            watch_accel_z = res[3]
+            //watch_accel_y = res[2]
+            //watch_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -387,8 +387,8 @@
             // dataPhone.appendChild(item);
             var res = msg.split(",");
             phoneR_accel_x = res[1];
-            phoneR_accel_y = res[2]
-            phoneR_accel_z = res[3]
+            //phoneR_accel_y = res[2]
+            //phoneR_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -398,8 +398,8 @@
             //dataESense.appendChild(item);
             var res = msg.split(",");
             esenseR_accel_x = res[1];
-            esenseR_accel_y = res[2]
-            esenseR_accel_z = res[3]
+            //esenseR_accel_y = res[2]
+            //esenseR_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -409,8 +409,8 @@
             //dataWatch.appendChild(item);
             var res = msg.split(",");
             watchR_accel_x = res[1];
-            watchR_accel_y = res[2]
-            watchR_accel_z = res[3]
+            //watchR_accel_y = res[2]
+            //watchR_accel_z = res[3]
             //window.scrollTo(0, document.body.scrollHeight);
         });
 
@@ -533,20 +533,20 @@
 
         // Data
         var line1 = new TimeSeries();
-        var line2 = new TimeSeries();
-        var line3 = new TimeSeries();
+        //var line2 = new TimeSeries();
+        //var line3 = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line1.append(new Date().getTime(), phone_accel_x);
-            line2.append(new Date().getTime(), phone_accel_y);
-            line3.append(new Date().getTime(), phone_accel_z);
+            //line2.append(new Date().getTime(), phone_accel_y);
+            //line3.append(new Date().getTime(), phone_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie1.addTimeSeries(line3, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        //smoothie1.addTimeSeries(line3, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
         smoothie1.addTimeSeries(line1, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie1.addTimeSeries(line2, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
+        //smoothie1.addTimeSeries(line2, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
 
 
         var smoothie2 = new SmoothieChart();
@@ -554,20 +554,20 @@
 
         // Data
         var line21 = new TimeSeries();
-        var line22 = new TimeSeries();
-        var line23 = new TimeSeries();
+        //var line22 = new TimeSeries();
+        //var line23 = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line21.append(new Date().getTime(), esense_accel_x);
-            line22.append(new Date().getTime(), esense_accel_y);
-            line23.append(new Date().getTime(), esense_accel_z);
+            //line22.append(new Date().getTime(), esense_accel_y);
+            //line23.append(new Date().getTime(), esense_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie2.addTimeSeries(line23, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        //smoothie2.addTimeSeries(line23, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
         smoothie2.addTimeSeries(line21, { strokeStyle: 'rgb(255, 0, 255)',/* fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie2.addTimeSeries(line22, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+        //smoothie2.addTimeSeries(line22, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
         var smoothie3 = new SmoothieChart();
@@ -575,20 +575,20 @@
 
         // Data
         var line31 = new TimeSeries();
-        var line32 = new TimeSeries();
-        var line33 = new TimeSeries();
+        //var line32 = new TimeSeries();
+        //var line33 = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line31.append(new Date().getTime(), watch_accel_x);
-            line32.append(new Date().getTime(), watch_accel_y);
-            line33.append(new Date().getTime(), watch_accel_z);
+            //line32.append(new Date().getTime(), watch_accel_y);
+            l//ine33.append(new Date().getTime(), watch_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie3.addTimeSeries(line33, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
+        //smoothie3.addTimeSeries(line33, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
         smoothie3.addTimeSeries(line31, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie3.addTimeSeries(line32, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+        //smoothie3.addTimeSeries(line32, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
 
@@ -600,20 +600,20 @@
 
         // Data
         var line1R = new TimeSeries();
-        var line2R = new TimeSeries();
-        var line3R = new TimeSeries();
+        //var line2R = new TimeSeries();
+        //var line3R = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line1R.append(new Date().getTime(), phoneR_accel_x);
-            line2R.append(new Date().getTime(), phoneR_accel_y);
-            line3R.append(new Date().getTime(), phoneR_accel_z);
+            //line2R.append(new Date().getTime(), phoneR_accel_y);
+            //line3R.append(new Date().getTime(), phoneR_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie1R.addTimeSeries(line3R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        //smoothie1R.addTimeSeries(line3R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
         smoothie1R.addTimeSeries(line1R, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie1R.addTimeSeries(line2R, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
+        //smoothie1R.addTimeSeries(line2R, { /*fillStyle: 'rgba(192,192,192,0.3)',*/ lineWidth: 3 });
 
 
         var smoothie2R = new SmoothieChart();
@@ -621,20 +621,20 @@
 
         // Data
         var line21R = new TimeSeries();
-        var line22R = new TimeSeries();
-        var line23R = new TimeSeries();
+        //var line22R = new TimeSeries();
+        //var line23R = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line21R.append(new Date().getTime(), esenseR_accel_x);
-            line22R.append(new Date().getTime(), esenseR_accel_y);
-            line23R.append(new Date().getTime(), esenseR_accel_z);
+            //line22R.append(new Date().getTime(), esenseR_accel_y);
+            //line23R.append(new Date().getTime(), esenseR_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie2R.addTimeSeries(line23R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
+        //smoothie2R.addTimeSeries(line23R, { strokeStyle: 'rgb(0, 255, 0)', /*fillStyle: 'rgba(0, 255, 0, 0.4)',*/ lineWidth: 3 });
         smoothie2R.addTimeSeries(line21R, { strokeStyle: 'rgb(255, 0, 255)',/* fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie2R.addTimeSeries(line22R, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+        //smoothie2R.addTimeSeries(line22R, { /* fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
         var smoothie3R = new SmoothieChart();
@@ -642,20 +642,20 @@
 
         // Data
         var line31R = new TimeSeries();
-        var line32R = new TimeSeries();
-        var line33R = new TimeSeries();
+        //var line32R = new TimeSeries();
+        //var line33R = new TimeSeries();
 
         // Add a random value to each line every second
         setInterval(function () {
             line31R.append(new Date().getTime(), watchR_accel_x);
-            line32R.append(new Date().getTime(), watchR_accel_y);
-            line33R.append(new Date().getTime(), watchR_accel_z);
+            //line32R.append(new Date().getTime(), watchR_accel_y);
+            //line33R.append(new Date().getTime(), watchR_accel_z);
         }, 100);
 
         // Add to SmoothieChart
-        smoothie3R.addTimeSeries(line33R, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
+        //smoothie3R.addTimeSeries(line33R, { strokeStyle: 'rgb(0, 255, 0)',/* fillStyle: 'rgba(0, 255, 0, 0.4)', */lineWidth: 3 });
         smoothie3R.addTimeSeries(line31R, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
-        smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
+        //smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
     //webcam
