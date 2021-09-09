@@ -681,8 +681,8 @@
                     video: {
                         tag: 'video',
                         type: 'video/webm',
-                        ext: '.mp4',
-                        gUM: { video: true, audio: true }
+                        ext: '.webm',
+                        gUM: { video: { width: { min: 1920 }, height: { min: 1080 }, frameRate: { min:25, ideal: 29} }, audio: true }
                     },
                     audio: {
                         tag: 'audio',
@@ -738,6 +738,7 @@
                 , mt = document.createElement(media.tag)
                 , hf = document.createElement('a')
                 ;
+
             mt.controls = true;
             mt.src = url;
 
