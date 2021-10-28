@@ -1,3 +1,6 @@
+// Smoothie Chart document copied into project to display accelerometer data on GUI
+// !!!Browser Policies have to be configured in order to allow localhost:3000 to access this local file to display acceleration plots!!!
+
 // MIT License:
 //
 // Copyright (c) 2010-2013, Joe Walnes

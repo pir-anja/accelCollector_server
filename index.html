@@ -1,3 +1,4 @@
+<!-- study leader gui. Connects to webcam, chooses user id, pace, and exercise. Displays connection to wearable devices and received acceleration sensor signals -->
 <!DOCTYPE html>
 <html height=100vh>
 
@@ -13,7 +14,6 @@
     <style>
         body {
             margin: 0;
-            /*padding-bottom: 3rem;*/
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: black;
             color: white;
@@ -77,22 +77,14 @@
             display: grid;
             grid-template-rows: 4fr 1fr;
             padding-left: 10px;
-
         }
 
         .charts {
             display: grid;
             grid-template-rows: 1fr 3fr;
-
         }
 
         #button {
-            /*
-            padding-top: 10px;
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding-top: 10px;*/
             width: 170px;
             height: 50px;
             font-size: 16px;
@@ -118,22 +110,14 @@
 
         .btn-group button {
             background-color: #4CAF50;
-            /* Green background */
             border: 1px solid green;
-            /* Green border */
             color: white;
             width: 8vw;
             height: 40px;
-            /* White text */
-            /*padding: 10px 24px;
-            /* Some padding */
             cursor: pointer;
-            /* Pointer/hand icon */
             float: left;
-            /* Float the buttons side by side */
         }
 
-        /* Clear floats (clearfix hack) */
         .btn-group:after {
             content: "";
             clear: both;
@@ -142,7 +126,6 @@
 
         .btn-group button:not(:last-child) {
             border-right: none;
-            /* Prevent double borders */
         }
 
         /* Add a background color on hover */
@@ -153,10 +136,12 @@
 </head>
 
 <body height=100vh>
+
     <h1>Acceleration Data Collector</h1>
 
     <div class="table">
 
+        <!-- Connection status of wearable devices -->
         <div class="init">
             <div>
                 <div style="clear: both">
@@ -186,6 +171,8 @@
                 </div>
 
             </div>
+
+            <!-- choose current user if -->
             <div>
                 <form id="form_user" action="">
                     <label for="cars">Select user ID:</label>
@@ -208,6 +195,7 @@
                     <input id="input" type="submit" value="Submit ID">
                 </form>
 
+                <!-- choose current pace -->
                 <form id="form_pace" action="">
                     <label for="cars2">Select Exercise Pace:</label>
                     <select name="pace" id="pace">
@@ -215,13 +203,11 @@
                         <option value="Normal">Normal</option>
                         <option value="Fast">Fast</option>
                     </select>
-
-
                     <input id="input" type="submit" value="Submit Pace">
                 </form>
 
+                <!-- choose current exercise -->
                 <p>Select an exercise:</p>
-
                 <div class="btn-group">
                     <button id="ex1" onclick="startEx(1)">1 Neck Rolls</button>
                     </button>
@@ -247,22 +233,20 @@
                     </button>
                 </div>
             </div>
-            <!--<div></div>-->
+            
+            <!-- webcam -->
             <div>
 
                 <div class="btn-group" id="buttonContainer" style = "padding-bottom: 20px;">
                     <p id="p_button">Recording not started yet</p>
                     <button id="button" onclick="startRecording(false)"><i class="foo fas fa-play"
                             style="font-size:30px;"></i>
-                        <!--<p>Start data recording</p>-->
                     </button>
 
                 </div>
+
                 <video id="video" autoplay width="360" height="270"></video>
-                <div>
-                   <!-- <button id="start-camera">Start webcam stream</button>-->
-                   
-                    
+                <div>                   
                     
                     <div id='btns'>
                         <button class="btn btn-default" id='start'>Start webcam recording</button>
@@ -271,11 +255,12 @@
 
                 </div>
 
-
             </div>
 
         </div>
         <div></div>
+
+        <!-- acceleration signals from wearable devices plots -->
         <div class="container" height=100vh>
             <div class=charts>
                 <h2>Phone Accelerometer:</h2>
@@ -294,6 +279,7 @@
             </div>
 
         </div>
+        <!-- download list of webcam recordings -->
         <ul class="list-unstyled" id='ul'></ul>
     </div>
 
@@ -301,30 +287,16 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var phone_accel_x = 0;
-        //var phone_accel_y = 0;
-        //var phone_accel_z = 0;
         var esense_accel_x = 0;
-        //var esense_accel_y = 0;
-        //var esense_accel_z = 0;
         var watch_accel_x = 0;
-        //var watch_accel_y = 0;
-        //var watch_accel_z = 0;
         var phoneR_accel_x = 0;
-        //var phoneR_accel_y = 0;
-        //var phoneR_accel_z = 0;
         var esenseR_accel_x = 0;
-        //var esenseR_accel_y = 0;
-        //var esenseR_accel_z = 0;
         var watchR_accel_x = 0;
-        //var watchR_accel_y = 0;
-        //var watchR_accel_z = 0;
         var socket = io();
 
-        //var messages = document.getElementById('messages');
         var dataPhone = document.getElementById('dataPhone');
         var dataESense = document.getElementById('dataESense');
         var dataWatch = document.getElementById('dataWatch');
-
 
         var form_user = document.getElementById('form_user');
         var input_user = document.getElementById('user_id');
@@ -333,7 +305,6 @@
             e.preventDefault();
             if (input_user.value) {
                 socket.emit('user id', input_user.value);
-                //input.value = '';
             }
         });
 
@@ -344,76 +315,41 @@
             e.preventDefault();
             if (input_pace.value) {
                 socket.emit('pace', input_pace.value);
-                //input.value = '';
             }
         });
 
+        // receive current acceleration data
         socket.on('phone accel data left', function (msg) {
-            // var item = document.createElement('li');
-            // item.textContent = msg;
-            // dataPhone.appendChild(item);
             var res = msg.split(",");
             phone_accel_x = res[1];
-            //phone_accel_y = res[2]
-            //phone_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('esense data left', function (msg) {
-            //var item = document.createElement('li');
-            //item.textContent = msg;
-            //dataESense.appendChild(item);
             var res = msg.split(",");
             esense_accel_x = res[1];
-            //esense_accel_y = res[2]
-            //esense_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('watch accel data left', function (msg) {
-            //var item = document.createElement('li');
-            //item.textContent = msg;
-            //dataWatch.appendChild(item);
             var res = msg.split(",");
             watch_accel_x = res[1];
-            //watch_accel_y = res[2]
-            //watch_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('phone accel data right', function (msg) {
-            // var item = document.createElement('li');
-            // item.textContent = msg;
-            // dataPhone.appendChild(item);
             var res = msg.split(",");
             phoneR_accel_x = res[1];
-            //phoneR_accel_y = res[2]
-            //phoneR_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('esense data right', function (msg) {
-            //var item = document.createElement('li');
-            //item.textContent = msg;
-            //dataESense.appendChild(item);
             var res = msg.split(",");
             esenseR_accel_x = res[1];
-            //esenseR_accel_y = res[2]
-            //esenseR_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('watch accel data right', function (msg) {
-            //var item = document.createElement('li');
-            //item.textContent = msg;
-            //dataWatch.appendChild(item);
             var res = msg.split(",");
             watchR_accel_x = res[1];
-            //watchR_accel_y = res[2]
-            //watchR_accel_z = res[3]
-            //window.scrollTo(0, document.body.scrollHeight);
         });
 
+        // wearable devices connection display
         socket.on('phone side connect', function (msg) {
             if (msg == "left") {
                 var x = document.getElementById("phoneleft");
@@ -454,20 +390,16 @@
         var pushed = false;
         var x = document.getElementById("p_button");
         var y = document.getElementById("button");
-        //var z = document.getElementById("symbol");
-        //let camera_button = document.querySelector("#start-camera");
         let video = document.querySelector("#video");
 
         let camera_stream = null;
         let media_recorder = null;
        
+        // displays that recording was started
         function startRecording(videoEnded) {
             if (!pushed) {
                 x.innerHTML = "Recording";
                 y.innerHTML = "Stop recording";
-                //z.style = "font-size:70px";
-                //z.class = "fas fa-pause";
-
                 socket.emit('start recording');
                 if(!videoEnded) {
                     socket.emit('resume vid temp');
@@ -476,11 +408,6 @@
             } else {
                 x.innerHTML = "Not recording";
                 y.innerHTML = "Start recording";
-                
-                //z.class = "fas fa-play";
-
-                // $('#download-video')[0].click();
-
                 socket.emit('stop recording');
                 if(!videoEnded) {
                     socket.emit('pause vid temp');
@@ -491,6 +418,7 @@
         }
 
        
+        // WebSocket events
 
         function startEx(msg) {
             socket.emit('start ex?', msg);
@@ -503,30 +431,21 @@
         });
 
         socket.on('button press stop', () => {
-            //alert('alert');
            startRecording(true);
-            $('#stop').click();
-            //media_recorder.stop();
-            //$link = $download_link.href;
-            //$('#download-video')[0].click();
-           
+            $('#stop').click();           
         });
 
         socket.on('alert', () => {
+            //error message
             alert('Please submit a current user and pace.');
-            
         });
 
-        /*camera_button.addEventListener('click', async function () {
-            camera_stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-            video.srcObject = camera_stream;
-        });*/
         async function streamWebcam() {
             camera_stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
             video.srcObject = camera_stream;
         }
 
-        //smoothie charts acceleration data visualisation on GUI
+        //smoothie charts acceleration data visualisation on GUI. To relieve the application from graphic power, only the x value of the acceleration of every device is displayed, y and z are commented out
 
         var smoothie1 = new SmoothieChart();
         smoothie1.streamTo(document.getElementById("mycanvas1"), 100);
@@ -590,11 +509,7 @@
         smoothie3.addTimeSeries(line31, { strokeStyle: 'rgb(255, 0, 255)', /*fillStyle: 'rgba(255, 0, 255, 0.3)',*/ lineWidth: 3 });
         //smoothie3.addTimeSeries(line32, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
-
-
-
-
-
+        
         var smoothie1R = new SmoothieChart();
         smoothie1R.streamTo(document.getElementById("canvasPhoneR"), 100);
 
@@ -658,7 +573,7 @@
         //smoothie3R.addTimeSeries(line32R, { /*fillStyle: 'rgba(192,192,192,0.3)', */lineWidth: 3 });
 
 
-    //webcam
+    // webcam usage
 
         'use strict'
 
