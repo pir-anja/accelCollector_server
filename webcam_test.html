@@ -1,3 +1,5 @@
+<!-- if the webcam does not want to connect, try this dedicated webcam test page. Normally, the webcam connects fine after visiting this page. -->
+<!-- can be reached at localhost:3000/cam -->
 <!DOCTYPE html>
 <html>
 
@@ -5,32 +7,24 @@
   <title>MediaRecorder API - Sample</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  
 </head>
 
 <body>
   <h1> MediaRecorder API example</h1>
-
-  
   <div id='gUMArea'>
-    
-    <button class="btn btn-default"  id='gUMbtn'>Request Stream</button>
+    <button class="btn btn-default" id='gUMbtn'>Request Stream</button>
   </div>
   <div id='btns'>
-    <button  class="btn btn-default" id='start'>Start</button>
-    <button  class="btn btn-default" id='stop'>Stop</button>
+    <button class="btn btn-default" id='start'>Start</button>
+    <button class="btn btn-default" id='stop'>Stop</button>
   </div>
- 
-    <ul class="list-unstyled" id='ul'></ul>
- 
+  <ul class="list-unstyled" id='ul'></ul>
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="script.js"></script>
 </body>
 <script>
   'use strict'
-
   let log = console.log.bind(console),
     id = val => document.getElementById(val),
     ul = id('ul'),
@@ -42,7 +36,6 @@
     counter = 1,
     chunks,
     media;
-
 
   gUMbtn.onclick = e => {
     let mv = id('mediaVideo'),
@@ -85,15 +78,12 @@
     recorder.start();
   }
 
-
   stop.onclick = e => {
     stop.disabled = true;
     recorder.stop();
     start.removeAttribute('disabled');
 
   }
-
-
 
   function makeLink() {
     let blob = new Blob(chunks, { type: media.type })
